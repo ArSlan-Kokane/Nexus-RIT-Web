@@ -39,7 +39,7 @@ export default async function HackathonsPage() {
             </p>
           </div>
           <a
-            href="https://chat.whatsapp.com/nexus-hackathon-hub-placeholder"
+            href="https://chat.whatsapp.com/B8X6Pp1A1beIbJgfM5khI5"
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0"
