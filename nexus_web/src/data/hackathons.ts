@@ -41,7 +41,7 @@ export const hackathonCommunityResources: HackathonCommunityResource[] = [
   {
     title: "NEXUS Hackathon WhatsApp Support Hub",
     description: "Connect with fellow developers, find teammates, discuss problem statements, and get mentor assistance.",
-    link: "https://chat.whatsapp.com/B8X6Pp1A1beIbJgfM5khI5",
+    link: "https://whatsapp.com/channel/0029VbDMvGCIyPtZvvAWLG19",
     type: "WHATSAPP",
   },
   {

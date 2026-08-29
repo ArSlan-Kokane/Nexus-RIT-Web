@@ -64,7 +64,7 @@ export function HackathonPipeline() {
 
             <div className="flex flex-wrap items-center gap-2">
               <a
-                href="https://chat.whatsapp.com/B8X6Pp1A1beIbJgfM5khI5"
+                href="https://whatsapp.com/channel/0029VbDMvGCIyPtZvvAWLG19"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -73,16 +73,20 @@ export function HackathonPipeline() {
                   <span>Join WhatsApp Hub</span>
                 </Button>
               </a>
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled
-                aria-label="Telegram channel coming soon"
-                className="border-sky-500/30 bg-sky-500/10 text-sky-200 opacity-100"
+              <a
+                href="https://t.me/+Qwumk5Ux15JmMTg9"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Send className="h-4 w-4 mr-2 text-sky-400" />
-                <span>Telegram Soon</span>
-              </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="border-sky-500/30 bg-sky-500/10 text-sky-200 hover:bg-sky-500/20 hover:border-sky-400/60"
+                >
+                  <Send className="h-4 w-4 mr-2 text-sky-400" />
+                  <span>Join Telegram</span>
+                </Button>
+              </a>
             </div>
           </div>
 
