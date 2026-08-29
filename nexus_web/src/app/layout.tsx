@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { CursorSparkles } from "@/components/layout/cursor-sparkles";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -32,8 +33,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "NEXUS Tech Team", url: "https://nexusrit.org" }],
   icons: {
-    icon: "/Nexus_Logo.svg",
-    apple: "/Nexus_Logo.svg",
+    icon: "/images/nexus-official-mark.jpg",
+    apple: "/images/nexus-official-mark.jpg",
   },
   openGraph: {
     title: "NEXUS — Innovation & Leadership Collective | RIT",
@@ -63,6 +64,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark antialiased scroll-smooth`}
     >
       <body className="min-h-screen flex flex-col bg-[#050507] text-[#f4f4f6]">
+        <CursorSparkles />
         {children}
       </body>
     </html>

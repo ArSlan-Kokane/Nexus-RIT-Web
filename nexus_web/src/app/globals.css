@@ -109,6 +109,54 @@
   animation: nexus-fade-in 180ms ease-out both;
 }
 
+@keyframes nexus-spark-trail {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% - 1.25rem), calc(-50% + 1rem)) scale(0);
+  }
+}
+
+@media (pointer: fine) {
+  .cursor-sparkles-enabled,
+  .cursor-sparkles-enabled * {
+    cursor: none !important;
+  }
+
+  .cursor-sparkles {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .cursor-core,
+  .cursor-spark {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 9999px;
+  }
+
+  .cursor-core {
+    width: 0.75rem;
+    height: 0.75rem;
+    transform: translate(-50%, -50%);
+    background: #e0f2fe;
+    border: 2px solid #38bdf8;
+    box-shadow: 0 0 0.75rem rgba(56, 189, 248, 0.9), 0 0 1.5rem rgba(37, 99, 235, 0.65);
+    transition: left 55ms linear, top 55ms linear;
+  }
+
+  .cursor-spark {
+    background: linear-gradient(135deg, #ffffff, #38bdf8 45%, #6366f1);
+    box-shadow: 0 0 0.65rem rgba(56, 189, 248, 0.85);
+    animation: nexus-spark-trail 520ms ease-out both;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

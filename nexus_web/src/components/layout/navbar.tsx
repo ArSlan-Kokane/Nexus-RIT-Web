@@ -22,7 +22,7 @@ export function Navbar() {
               <Link href="/" className="flex items-center gap-2.5 group">
                 <div className="h-9 w-9 rounded-lg bg-zinc-900 border border-zinc-800 p-1.5 flex items-center justify-center transition-all group-hover:border-blue-500/50">
                   <Image
-                    src="/Nexus_Logo.svg"
+                    src="/images/nexus-official-mark.jpg"
                     alt="NEXUS Logo"
                     width={26}
                     height={26}

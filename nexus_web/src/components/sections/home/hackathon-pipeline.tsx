@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { ArrowRight, MessageCircle, Trophy } from "lucide-react";
+import { ArrowRight, MessageCircle, Send, Trophy } from "lucide-react";
 import Link from "next/link";
 
 export function HackathonPipeline() {
@@ -62,16 +62,28 @@ export function HackathonPipeline() {
               </p>
             </div>
 
-            <a
-              href="https://chat.whatsapp.com/B8X6Pp1A1beIbJgfM5khI5"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="primary" size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-xs font-mono">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                <span>Join WhatsApp Hub</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href="https://chat.whatsapp.com/B8X6Pp1A1beIbJgfM5khI5"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="primary" size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-xs font-mono">
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  <span>Join WhatsApp Hub</span>
+                </Button>
+              </a>
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled
+                aria-label="Telegram channel coming soon"
+                className="border-sky-500/30 bg-sky-500/10 text-sky-200 opacity-100"
+              >
+                <Send className="h-4 w-4 mr-2 text-sky-400" />
+                <span>Telegram Soon</span>
               </Button>
-            </a>
+            </div>
           </div>
 
           {/* 6-Stage Process Pipeline Grid */}

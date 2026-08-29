@@ -174,7 +174,7 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-zinc-900 border border-zinc-800 p-1.5 flex items-center justify-center">
               <Image
-                src="/Nexus_Logo.svg"
+                src="/images/nexus-official-mark.jpg"
                 alt="NEXUS"
                 width={26}
                 height={26}

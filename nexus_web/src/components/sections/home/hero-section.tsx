@@ -79,26 +79,6 @@ export function HeroSection() {
               </Button>
             </Link>
           </div>
-
-          {/* Full-Width Telemetry Strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 border-t border-[#1c1c27]">
-            <div className="space-y-1">
-              <div className="text-xs font-mono text-zinc-500 uppercase">01 / Architecture</div>
-              <div className="text-sm font-semibold text-white font-mono">Next.js 16 Server-First</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-xs font-mono text-zinc-500 uppercase">02 / Open Source</div>
-              <div className="text-sm font-semibold text-blue-400 font-mono">100% Public Repos</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-xs font-mono text-zinc-500 uppercase">03 / Directorates</div>
-              <div className="text-sm font-semibold text-emerald-400 font-mono">5 Specialized Divisions</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-xs font-mono text-zinc-500 uppercase">04 / Campus Hub</div>
-              <div className="text-sm font-semibold text-white font-mono">RIT Engineering Node</div>
-            </div>
-          </div>
         </div>
       </Container>
     </section>
