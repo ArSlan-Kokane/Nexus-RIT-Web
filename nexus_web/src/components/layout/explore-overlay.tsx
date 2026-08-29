@@ -17,32 +17,56 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface ExploreOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-export function ExploreOverlay({ isOpen, onClose }: ExploreOverlayProps) {
-  // Close on Escape key press
+export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayProps) {
+  const overlayRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const focusableSelector =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        triggerRef.current?.focus();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+      const focusableElements = Array.from(
+        overlayRef.current?.querySelectorAll<HTMLElement>(focusableSelector) ?? []
+      );
+      const first = focusableElements[0];
+      const last = focusableElements.at(-1);
+
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
 
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = "hidden";
+    overlayRef.current?.querySelector<HTMLElement>(focusableSelector)?.focus();
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, triggerRef]);
 
   if (!isOpen) return null;
 
@@ -118,11 +142,13 @@ export function ExploreOverlay({ isOpen, onClose }: ExploreOverlayProps) {
       title: "Outreach & Access",
       links: [
         {
-          title: "Spring 2026 Recruitment",
+          title: siteConfig.recruitment.isOpen
+            ? "Spring 2026 Recruitment"
+            : "Recruitment Updates",
           href: "/join",
           desc: "Apply to join the collective across our 5 divisions.",
           icon: Sparkles,
-          badge: "Active",
+          badge: siteConfig.recruitment.isOpen ? "Active" : "Closed",
         },
         {
           title: "Campus Location & Inquiries",
@@ -135,7 +161,13 @@ export function ExploreOverlay({ isOpen, onClose }: ExploreOverlayProps) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#050507]/95 backdrop-blur-2xl overflow-y-auto animate-in fade-in-0 duration-200">
+    <div
+      ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Explore directory"
+      className="fixed inset-0 z-50 bg-[#050507]/95 backdrop-blur-2xl overflow-y-auto motion-fade-in"
+    >
       <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Overlay Top Bar */}
         <div className="flex items-center justify-between border-b border-[#1c1c27] pb-6">
@@ -157,7 +189,10 @@ export function ExploreOverlay({ isOpen, onClose }: ExploreOverlayProps) {
           </div>
 
           <button
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              triggerRef.current?.focus();
+            }}
             className="p-2.5 rounded-lg text-zinc-400 hover:text-white bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer flex items-center gap-2 text-xs font-mono"
             aria-label="Close menu"
           >

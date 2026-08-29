@@ -87,9 +87,9 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/join" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span>Spring Recruitment</span>
+                  <span>{siteConfig.recruitment.isOpen ? "Spring Recruitment" : "Recruitment Updates"}</span>
                   <span className="text-[9px] font-mono px-1 rounded bg-blue-500/20 text-blue-400">
-                    Open
+                    {siteConfig.recruitment.isOpen ? "Open" : "Closed"}
                   </span>
                 </Link>
               </li>

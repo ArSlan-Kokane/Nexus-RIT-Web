@@ -5,10 +5,12 @@ import { ExploreOverlay } from "./explore-overlay";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { MobileNav } from "./mobile-nav";
 
 export function Navbar() {
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const exploreTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
@@ -60,8 +62,9 @@ export function Navbar() {
             </div>
 
             {/* Center: Minimalist Explore Trigger */}
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <button
+                ref={exploreTriggerRef}
                 onClick={() => setIsExploreOpen(true)}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0e0e14] border border-[#222230] text-xs font-mono font-semibold text-zinc-300 hover:text-white hover:border-zinc-600 hover:bg-[#161620] transition-all cursor-pointer shadow-sm"
                 aria-label="Open Explore Directory"
@@ -72,7 +75,7 @@ export function Navbar() {
             </div>
 
             {/* Right: Join CTA & Mobile Menu */}
-            <div className="flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3">
               <Link href="/join">
                 <Button
                   variant="primary"
@@ -84,6 +87,8 @@ export function Navbar() {
                 </Button>
               </Link>
             </div>
+
+            <MobileNav />
           </div>
         </div>
       </header>
@@ -92,6 +97,7 @@ export function Navbar() {
       <ExploreOverlay
         isOpen={isExploreOpen}
         onClose={() => setIsExploreOpen(false)}
+        triggerRef={exploreTriggerRef}
       />
     </>
   );

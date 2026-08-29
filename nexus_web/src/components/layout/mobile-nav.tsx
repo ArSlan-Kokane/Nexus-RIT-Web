@@ -6,38 +6,78 @@ import { cn } from "@/lib/utils";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const menuRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
-  // Prevent background scrolling when open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const focusableSelector =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusFirstItem = () =>
+      menuRef.current?.querySelector<HTMLElement>(focusableSelector)?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableElements = Array.from(
+        menuRef.current?.querySelectorAll<HTMLElement>(focusableSelector) ?? []
+      );
+      const first = focusableElements[0];
+      const last = focusableElements.at(-1);
+
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    focusFirstItem();
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
   return (
     <div className="lg:hidden">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={toggleRef}
+        onClick={() => setIsOpen((open) => !open)}
         className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label="Toggle mobile menu"
         aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
       >
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </button>
 
       {/* Backdrop & Drawer */}
       {isOpen && (
-        <div className="fixed inset-0 top-16 z-50 bg-[#050507]/95 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-6 overflow-y-auto animate-in fade-in-0 duration-200">
+        <nav
+          ref={menuRef}
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+          className="fixed inset-0 top-16 z-50 bg-[#050507]/95 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-6 overflow-y-auto motion-fade-in"
+        >
           <div className="flex flex-col space-y-1 mb-8">
             {siteConfig.navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -54,9 +94,17 @@ export function MobileNav() {
                   )}
                 >
                   <span>{item.title}</span>
-                  {item.badge && (
+                  {(item.href === "/join"
+                    ? siteConfig.recruitment.isOpen
+                      ? "Recruiting"
+                      : "Closed"
+                    : item.badge) && (
                     <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                      {item.badge}
+                      {item.href === "/join"
+                        ? siteConfig.recruitment.isOpen
+                          ? "Recruiting"
+                          : "Closed"
+                        : item.badge}
                     </span>
                   )}
                 </Link>
@@ -81,7 +129,7 @@ export function MobileNav() {
               </p>
             </div>
           </div>
-        </div>
+        </nav>
       )}
     </div>
   );

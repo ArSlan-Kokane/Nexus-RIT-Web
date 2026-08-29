@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
     { title: "Insights", href: "/insights" },
     { title: "Resources", href: "/resources" },
     { title: "Alumni", href: "/alumni" },
-    { title: "Join", href: "/join", badge: "Recruiting" },
+    { title: "Join", href: "/join" },
     { title: "Contact", href: "/contact" },
   ],
 };

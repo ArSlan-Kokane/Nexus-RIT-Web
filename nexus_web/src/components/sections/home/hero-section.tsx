@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/data/site-config";
 import { ArrowRight, Terminal, Trophy } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,7 +62,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
             <Link href="/join">
               <Button size="lg" variant="primary" className="h-14 px-8 text-base font-semibold justify-center">
-                <span>Apply for Spring 2026</span>
+                <span>{siteConfig.recruitment.isOpen ? "Apply to NEXUS" : "Explore NEXUS"}</span>
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </Link>

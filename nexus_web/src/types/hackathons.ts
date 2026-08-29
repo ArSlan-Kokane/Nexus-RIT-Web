@@ -19,5 +19,5 @@ export interface HackathonCommunityResource {
   title: string;
   description: string;
   link: string;
-  type: "WHATSAPP" | "DISCORD" | "GUIDE" | "TOOL";
+  type: "WHATSAPP" | "DISCORD" | "GUIDE" | "TOOL" | "STARTER_KIT";
 }

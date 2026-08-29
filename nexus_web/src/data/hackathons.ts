@@ -54,6 +54,6 @@ export const hackathonCommunityResources: HackathonCommunityResource[] = [
     title: "Production Tech Stack Boilerplate",
     description: "Next.js + TypeScript + Tailwind template pre-configured for lightning-fast 24h hackathon prototyping.",
     link: "https://github.com/nexus-rit/hackathon-starter-kit",
-    type: "STARTER_KIT" as unknown as "TOOL",
+    type: "STARTER_KIT",
   },
 ];

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 export default async function JoinPage() {
   const departments = await getDepartments();
+  const { recruitment } = siteConfig;
 
   const recruitmentSteps = [
     {
@@ -67,9 +68,11 @@ export default async function JoinPage() {
           <div className="rounded-2xl bg-gradient-to-br from-blue-950/40 via-[#0c0c10] to-[#050507] border border-blue-900/40 p-8 sm:p-14 relative overflow-hidden">
             <div className="max-w-3xl space-y-6">
               <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="glow">Official Recruitment</Badge>
+                <Badge variant="glow">
+                  {recruitment.isOpen ? "Official Recruitment" : "Recruitment Updates"}
+                </Badge>
                 <span className="text-xs font-mono text-zinc-400">
-                  {siteConfig.recruitment.deadline}
+                  {recruitment.deadline}
                 </span>
               </div>
 
@@ -78,24 +81,35 @@ export default async function JoinPage() {
               </h1>
 
               <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
-                Step into a high-ownership student ecosystem. Whether you build full-stack software, design compelling media, negotiate partnerships, or coordinate campus hackathons — there is a track for you.
+                {recruitment.isOpen
+                  ? "Step into a high-ownership student ecosystem. Whether you build full-stack software, design compelling media, negotiate partnerships, or coordinate campus hackathons — there is a track for you."
+                  : "Recruitment is currently closed. Explore the NEXUS divisions and follow our official channels for the next induction cycle."}
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
-                <a
-                  href={siteConfig.recruitment.googleFormUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto"
-                >
-                  <Button size="lg" variant="primary" className="w-full sm:w-auto text-sm font-semibold h-12 px-8">
-                    Open Google Form Application
-                    <ArrowUpRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </a>
+                {recruitment.isOpen ? (
+                  <a
+                    href={recruitment.googleFormUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto"
+                  >
+                    <Button size="lg" variant="primary" className="w-full sm:w-auto text-sm font-semibold h-12 px-8">
+                      Open Google Form Application
+                      <ArrowUpRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </a>
+                ) : (
+                  <Link href="/contact" className="w-full sm:w-auto">
+                    <Button size="lg" variant="primary" className="w-full sm:w-auto text-sm font-semibold h-12 px-8">
+                      Contact NEXUS
+                      <ArrowUpRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </Link>
+                )}
                 <Link href="#departments" className="w-full sm:w-auto">
                   <Button size="lg" variant="secondary" className="w-full sm:w-auto text-sm h-12 px-6">
-                    View Open Tracks
+                    {recruitment.isOpen ? "View Open Tracks" : "Explore Divisions"}
                   </Button>
                 </Link>
               </div>
@@ -188,8 +202,9 @@ export default async function JoinPage() {
 
           {/* Bottom Application Callout */}
           <div className="text-center pt-12">
-            <a
-              href={siteConfig.recruitment.googleFormUrl}
+            {recruitment.isOpen && (
+              <a
+                href={recruitment.googleFormUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
@@ -199,6 +214,7 @@ export default async function JoinPage() {
                 <ArrowUpRight className="h-4 w-4 ml-2" />
               </Button>
             </a>
+            )}
           </div>
         </Container>
       </section>
