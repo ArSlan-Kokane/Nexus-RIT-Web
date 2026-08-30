@@ -1,6 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { BlueLine } from "@/components/ui/blue-line";
 import { siteConfig } from "@/data/site-config";
 import { ArrowRight, Terminal, Trophy } from "lucide-react";
 import Image from "next/image";
@@ -53,9 +54,9 @@ export function HeroSection() {
           {/* Top Metadata & Co-Branding Bar */}
           <motion.div
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#1c1c27] pb-6"
-            initial={shouldAnimate ? { opacity: 0, y: 20 } : false}
-            animate={shouldAnimate ? { opacity: 1, y: 0 } : false}
-            transition={shouldAnimate ? { duration: 0.3, delay: 1.6 } : false}
+            initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+            animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+            transition={shouldAnimate ? { duration: 0.3, delay: 1.6 } : undefined}
           >
             <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-300 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -73,37 +74,48 @@ export function HeroSection() {
                   height={16}
                   className="rounded-full"
                 />
-                <span className="text-zinc-200">RAJARAMBAPU INSTITUTE OF TECHNOLOGY</span>
+                <span className="text-zinc-200">
+                  RAJARAMBAPU INSTITUTE OF TECHNOLOGY
+                </span>
               </div>
-              <span className="hidden md:inline text-zinc-600">LOC: 17.04°N, 74.26°E</span>
+              <span className="hidden md:inline text-zinc-600">
+                LOC: 17.04°N, 74.26°E
+              </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Monolithic Editorial Typography */}
           <div className="space-y-6 max-w-5xl">
             <div className="space-y-2">
               <motion.div
                 className="text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold"
-                initial={shouldAnimate ? { opacity: 0 } : false}
-                animate={shouldAnimate ? { opacity: 1 } : false}
-                transition={shouldAnimate ? { duration: 0.2, delay: 0.2 } : false}
+                initial={shouldAnimate ? { opacity: 0 } : undefined}
+                animate={shouldAnimate ? { opacity: 1 } : undefined}
+                transition={
+                  shouldAnimate ? { duration: 0.2, delay: 0.2 } : undefined
+                }
               >
                 Innovation & Technical Leadership Ecosystem
               </motion.div>
+
               <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-[0.95]">
                 <motion.span
                   className="block text-zinc-100"
-                  initial={shouldAnimate ? { opacity: 0, scale: 0.95 } : false}
-                  animate={shouldAnimate ? { opacity: 1, scale: 1 } : false}
-                  transition={shouldAnimate ? { duration: 0.2, delay: 0.4 } : false}
+                  initial={shouldAnimate ? { opacity: 0, scale: 0.95 } : undefined}
+                  animate={shouldAnimate ? { opacity: 1, scale: 1 } : undefined}
+                  transition={
+                    shouldAnimate ? { duration: 0.2, delay: 0.4 } : undefined
+                  }
                 >
                   BUILD.
                 </motion.span>
                 <motion.span
                   className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-zinc-500"
-                  initial={shouldAnimate ? { opacity: 0, scale: 0.95 } : false}
-                  animate={shouldAnimate ? { opacity: 1, scale: 1 } : false}
-                  transition={shouldAnimate ? { duration: 0.2, delay: 0.6 } : false}
+                  initial={shouldAnimate ? { opacity: 0, scale: 0.95 } : undefined}
+                  animate={shouldAnimate ? { opacity: 1, scale: 1 } : undefined}
+                  transition={
+                    shouldAnimate ? { duration: 0.2, delay: 0.6 } : undefined
+                  }
                 >
                   LEAD. CONNECT.
                 </motion.span>
@@ -112,35 +124,59 @@ export function HeroSection() {
 
             <motion.p
               className="text-lg sm:text-2xl text-zinc-400 max-w-3xl font-normal leading-relaxed"
-              initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
-              animate={shouldAnimate ? { opacity: 1, y: 0 } : false}
-              transition={shouldAnimate ? { duration: 0.3, delay: 0.8 } : false}
+              initial={shouldAnimate ? { opacity: 0, y: 10 } : undefined}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+              transition={
+                shouldAnimate ? { duration: 0.3, delay: 0.8 } : undefined
+              }
             >
-              We are the premier engineering collective of RIT. Building production-grade software, competing in national hackathons, and establishing student technical sovereignty.
+              We are the premier engineering collective of RIT. Building
+              production-grade software, competing in national hackathons, and
+              establishing student technical sovereignty.
             </motion.p>
           </div>
 
           {/* Action Strip */}
           <motion.div
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4"
-            initial={shouldAnimate ? { opacity: 0, y: 20 } : false}
-            animate={shouldAnimate ? { opacity: 1, y: 0 } : false}
-            transition={shouldAnimate ? { duration: 0.3, delay: 2.0 } : false}
+            initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+            animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+            transition={
+              shouldAnimate ? { duration: 0.3, delay: 2.0 } : undefined
+            }
           >
             <Link href="/join">
-              <Button size="lg" variant="primary" className="h-14 px-8 text-base font-semibold justify-center">
-                <span>{siteConfig.recruitment.isOpen ? "Apply to NEXUS" : "Explore NEXUS"}</span>
+              <Button
+                size="lg"
+                variant="primary"
+                className="h-14 px-8 text-base font-semibold justify-center"
+              >
+                <span>
+                  {siteConfig.recruitment.isOpen
+                    ? "Apply to NEXUS"
+                    : "Explore NEXUS"}
+                </span>
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </Link>
+
             <Link href="/hackathons">
-              <Button size="lg" variant="secondary" className="h-14 px-8 text-base justify-center">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="h-14 px-8 text-base justify-center"
+              >
                 <Trophy className="h-4 w-4 mr-2 text-blue-400" />
                 <span>Hackathon Support Hub</span>
               </Button>
             </Link>
+
             <Link href="/projects">
-              <Button size="lg" variant="outline" className="h-14 px-8 text-base justify-center">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 text-base justify-center"
+              >
                 <Terminal className="h-4 w-4 mr-2 text-zinc-400" />
                 <span>Project Archive</span>
               </Button>
