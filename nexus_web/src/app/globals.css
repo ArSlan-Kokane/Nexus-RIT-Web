@@ -20,6 +20,13 @@
     --success: #10b981;
     --success-glow: rgba(16, 185, 129, 0.15);
     --warning: #f59e0b;
+    
+    /* Animation system */
+    --cursor-x: 50%;
+    --cursor-y: 50%;
+    --animation-fast: 150ms;
+    --animation-normal: 300ms;
+    --animation-slow: 500ms;
   }
 
   * {
@@ -109,6 +116,123 @@
   animation: nexus-fade-in 180ms ease-out both;
 }
 
+/* Hero entrance animations */
+@keyframes line-draw-horizontal {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes line-draw-vertical {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes snap-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ambient cursor glow */
+.ambient-cursor-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    600px circle at var(--cursor-x) var(--cursor-y),
+    rgba(59, 130, 246, 0.06),
+    transparent 40%
+  );
+  transition: background 0.3s ease-out;
+  will-change: background;
+}
+
+/* Interactive element enhancements */
+[data-interactive="true"] {
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+[data-interactive="true"]:hover {
+  transform: scale(1.02);
+}
+
+/* Scroll reveal animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-children.is-visible > *:nth-child(1) {
+  animation: slide-up 0.4s ease forwards 0ms;
+}
+
+.stagger-children.is-visible > *:nth-child(2) {
+  animation: slide-up 0.4s ease forwards 100ms;
+}
+
+.stagger-children.is-visible > *:nth-child(3) {
+  animation: slide-up 0.4s ease forwards 200ms;
+}
+
+.stagger-children.is-visible > *:nth-child(4) {
+  animation: slide-up 0.4s ease forwards 300ms;
+}
+
+.stagger-children.is-visible > *:nth-child(5) {
+  animation: slide-up 0.4s ease forwards 400ms;
+}
+
+.stagger-children.is-visible > *:nth-child(6) {
+  animation: slide-up 0.4s ease forwards 500ms;
+}
+
 @keyframes nexus-spark-trail {
   0% {
     opacity: 0.9;
@@ -121,39 +245,17 @@
 }
 
 @media (pointer: fine) {
-  .cursor-sparkles-enabled,
-  .cursor-sparkles-enabled * {
-    cursor: none !important;
+  /* Interactive cursor states */
+  [data-cursor="interactive"] {
+    cursor: pointer;
   }
-
-  .cursor-sparkles {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    pointer-events: none;
+  
+  [data-cursor="text"] {
+    cursor: text;
   }
-
-  .cursor-core,
-  .cursor-spark {
-    position: fixed;
-    pointer-events: none;
-    border-radius: 9999px;
-  }
-
-  .cursor-core {
-    width: 0.75rem;
-    height: 0.75rem;
-    transform: translate(-50%, -50%);
-    background: #e0f2fe;
-    border: 2px solid #38bdf8;
-    box-shadow: 0 0 0.75rem rgba(56, 189, 248, 0.9), 0 0 1.5rem rgba(37, 99, 235, 0.65);
-    transition: left 55ms linear, top 55ms linear;
-  }
-
-  .cursor-spark {
-    background: linear-gradient(135deg, #ffffff, #38bdf8 45%, #6366f1);
-    box-shadow: 0 0 0.65rem rgba(56, 189, 248, 0.85);
-    animation: nexus-spark-trail 520ms ease-out both;
+  
+  [data-cursor="default"] {
+    cursor: default;
   }
 }
 
@@ -169,5 +271,23 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
+  }
+  
+  /* Disable ambient glow */
+  .ambient-cursor-glow {
+    display: none;
+  }
+  
+  /* Instant scroll reveals */
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }

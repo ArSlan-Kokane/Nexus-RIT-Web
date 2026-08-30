@@ -6,3 +6,4 @@ export * from "./projects";
 export * from "./insights";
 export * from "./resources";
 export * from "./alumni";
+export * from "./animation";

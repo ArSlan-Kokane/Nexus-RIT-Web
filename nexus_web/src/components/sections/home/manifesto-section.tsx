@@ -1,17 +1,26 @@
 import { Container } from "@/components/ui/container";
+import { BlueLine } from "@/components/ui/blue-line";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Code2, ShieldCheck, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ManifestoSection() {
+  const headerRef = useScrollReveal();
+  const column1Ref = useScrollReveal();
+  const column2Ref = useScrollReveal();
+  const column3Ref = useScrollReveal();
+
   return (
     <section className="py-24 bg-[#07070a] border-b border-[#1c1c27]">
       <Container size="xl">
         <div className="space-y-16">
           {/* Large Typographic Manifesto Header */}
-          <div className="space-y-4 max-w-4xl">
+          <div ref={headerRef.elementRef} className="space-y-4 max-w-4xl scroll-reveal">
             <div className="text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
               <span>THE NEXUS CREED</span>
             </div>
+            <BlueLine orientation="horizontal" variant="draw" delay={0.3} />
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase leading-tight">
               We don&apos;t just participate.
               <span className="block text-zinc-500">
@@ -26,7 +35,13 @@ export function ManifestoSection() {
           {/* 3 Full-Width Asymmetric Columns */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-[#1c1c27] rounded-2xl overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-[#1c1c27] bg-[#050507]">
             {/* 01 / BUILD */}
-            <div className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors">
+            <motion.div
+              ref={column1Ref.elementRef}
+              className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
+              initial={{ opacity: 0, x: -20 }}
+              animate={column1Ref.isVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-2xl sm:text-3xl font-mono font-bold text-blue-400">01</span>
@@ -62,7 +77,13 @@ export function ManifestoSection() {
             </div>
 
             {/* 02 / LEAD */}
-            <div className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors">
+            <motion.div
+              ref={column2Ref.elementRef}
+              className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
+              initial={{ opacity: 0, y: 20 }}
+              animate={column2Ref.isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.2 }}
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-2xl sm:text-3xl font-mono font-bold text-indigo-400">02</span>
@@ -98,7 +119,13 @@ export function ManifestoSection() {
             </div>
 
             {/* 03 / CONNECT */}
-            <div className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors">
+            <motion.div
+              ref={column3Ref.elementRef}
+              className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
+              initial={{ opacity: 0, x: 20 }}
+              animate={column3Ref.isVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">03</span>

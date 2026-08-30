@@ -1,26 +1,52 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { BlueLine } from "@/components/ui/blue-line";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { ProjectItem } from "@/types";
 import { ArrowRight, ArrowUpRight, Code2, Terminal } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectGalleryProps {
   projects: ProjectItem[];
 }
 
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal();
+
+  const expandedVariants = {
+    collapsed: {
+      opacity: 0.8,
+      transition: { duration: 0.3 }
+    },
+    expanded: {
+      opacity: 1,
+      transition: { duration: 0.4 }
+    }
+  };
+
   return (
     <section className="py-24 bg-[#050507] border-b border-[#1c1c27]">
       <Container size="xl">
         <div className="space-y-16">
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8">
+          <motion.div
+            ref={headerRef.elementRef}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
+            initial={{ opacity: 0, y: 20 }}
+            animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4 }}
+          >
             <div className="space-y-3 max-w-3xl">
               <div className="text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
                 <span>ENGINEERING DOSSIER</span>
               </div>
+              <BlueLine orientation="horizontal" variant="draw" delay={0.2} />
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
                 Production Works & Systems
               </h2>
@@ -35,17 +61,32 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                 <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Asymmetric Full-Width Editorial Project Dossiers */}
-          <div className="space-y-8">
+          <motion.div
+            ref={gridRef.elementRef}
+            className="space-y-8 scroll-reveal"
+            initial={{ opacity: 0, y: 20 }}
+            animate={gridRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
             {projects.slice(0, 3).map((project, index) => {
               const projectNumber = `PROJECT ${String(index + 1).padStart(3, "0")}`;
+              const isExpanded = expandedProject === project.id;
 
               return (
-                <div
+                <motion.div
                   key={project.id}
-                  className="p-8 sm:p-10 rounded-2xl bg-[#09090e] border border-[#1c1c27] hover:border-zinc-700 hover:bg-[#0c0c12] transition-all space-y-6"
+                  className={`p-8 sm:p-10 rounded-2xl border transition-all space-y-6 ${
+                    isExpanded
+                      ? "bg-[#0c0c12] border-blue-500/50 shadow-[0_0_30px_rgba(59,130,246,0.1)]"
+                      : "bg-[#09090e] border-[#1c1c27] hover:border-zinc-700 hover:bg-[#0c0c12]"
+                  }`}
+                  variants={expandedVariants}
+                  animate={isExpanded ? "expanded" : "collapsed"}
+                  onClick={() => setExpandedProject(isExpanded ? null : project.id)}
+                  data-interactive="true"
                 >
                   {/* Top Dossier Header */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c1c27] pb-4">
@@ -133,10 +174,10 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

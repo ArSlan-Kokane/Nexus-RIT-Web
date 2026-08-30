@@ -18,6 +18,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ExploreOverlayProps {
   isOpen: boolean;
@@ -27,6 +28,31 @@ interface ExploreOverlayProps {
 
 export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  const overlayVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.2 }
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        staggerChildren: 0.05
+      }
+    }
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.2 }
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -161,13 +187,18 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
   ];
 
   return (
-    <div
-      ref={overlayRef}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Explore directory"
-      className="fixed inset-0 z-50 bg-[#050507]/95 backdrop-blur-2xl overflow-y-auto motion-fade-in"
-    >
+    <AnimatePresence>
+      <motion.div
+        ref={overlayRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Explore directory"
+        className="fixed inset-0 z-50 bg-[#050507]/95 backdrop-blur-2xl overflow-y-auto"
+        variants={overlayVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+      >
       <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Overlay Top Bar */}
         <div className="flex items-center justify-between border-b border-[#1c1c27] pb-6">
@@ -212,16 +243,30 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
                 </h3>
               </div>
 
-              <div className="space-y-3">
-                {category.links.map((link) => {
+              <motion.div 
+                className="space-y-3"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.05
+                    }
+                  }
+                }}
+              >
+                {category.links.map((link, index) => {
                   const Icon = link.icon;
                   return (
-                    <Link
+                    <motion.div
                       key={link.href}
-                      href={link.href}
-                      onClick={onClose}
-                      className="group block p-3.5 rounded-xl bg-[#09090d] border border-[#1c1c27] hover:border-zinc-700 hover:bg-[#121218] transition-all"
+                      variants={linkVariants}
                     >
+                      <Link
+                        href={link.href}
+                        onClick={onClose}
+                        className="group block p-3.5 rounded-xl bg-[#09090d] border border-[#1c1c27] hover:border-zinc-700 hover:bg-[#121218] transition-all"
+                        data-interactive="true"
+                      >
                       <div className="flex items-start gap-3">
                         <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 group-hover:text-blue-400 group-hover:border-blue-500/30 transition-colors shrink-0">
                           <Icon className="h-4 w-4" />
@@ -243,9 +288,10 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
                         </div>
                       </div>
                     </Link>
+                    </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           ))}
         </div>
@@ -278,6 +324,7 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
           </div>
         </div>
       </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

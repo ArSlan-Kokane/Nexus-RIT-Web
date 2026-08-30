@@ -7,12 +7,38 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const drawerVariants = {
+    hidden: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.2 }
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.25,
+        ease: [0.25, 0.1, 0.25, 1.0]
+      }
+    }
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.2 }
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -71,28 +97,47 @@ export function MobileNav() {
       </button>
 
       {/* Backdrop & Drawer */}
-      {isOpen && (
-        <nav
-          ref={menuRef}
-          id="mobile-navigation"
-          aria-label="Mobile navigation"
-          className="fixed inset-0 top-16 z-50 bg-[#050507]/95 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-6 overflow-y-auto motion-fade-in"
-        >
-          <div className="flex flex-col space-y-1 mb-8">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.nav
+            ref={menuRef}
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
+            className="fixed inset-0 top-16 z-50 bg-[#050507]/95 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-6 overflow-y-auto"
+            variants={drawerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+          <motion.div 
+            className="flex flex-col space-y-1 mb-8"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.04
+                }
+              }
+            }}
+          >
             {siteConfig.navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
-                <Link
+                <motion.div
                   key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "flex items-center justify-between py-3 px-4 rounded-lg text-base font-medium transition-colors",
-                    isActive
-                      ? "bg-blue-600/15 text-blue-400 border border-blue-500/20"
-                      : "text-zinc-300 hover:text-white hover:bg-[#14141b]"
-                  )}
+                  variants={linkVariants}
                 >
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "flex items-center justify-between py-3 px-4 rounded-lg text-base font-medium transition-colors",
+                      isActive
+                        ? "bg-blue-600/15 text-blue-400 border border-blue-500/20"
+                        : "text-zinc-300 hover:text-white hover:bg-[#14141b]"
+                    )}
+                    data-interactive="true"
+                  >
                   <span>{item.title}</span>
                   {(item.href === "/join"
                     ? siteConfig.recruitment.isOpen
@@ -108,9 +153,10 @@ export function MobileNav() {
                     </span>
                   )}
                 </Link>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
           <div className="mt-auto pt-6 border-t border-[#1c1c27] space-y-4">
             <Link href="/join" onClick={() => setIsOpen(false)} className="w-full block">
@@ -129,8 +175,9 @@ export function MobileNav() {
               </p>
             </div>
           </div>
-        </nav>
-      )}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

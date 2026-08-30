@@ -1,9 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Container } from "@/components/ui/container";
 import { getProjects } from "@/lib/data";
-import { ArrowUpRight, Code2 } from "lucide-react";
+import { ProjectItem } from "@/types";
 import type { Metadata } from "next";
+import ProjectsContent from "./projects-content";
 
 export const metadata: Metadata = {
   title: "Projects Showcase",
@@ -12,21 +10,8 @@ export const metadata: Metadata = {
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
-
-  return (
-    <div className="flex flex-col w-full py-12 md:py-20 space-y-12">
-      <Container size="lg">
-        <div className="max-w-3xl">
-          <Badge variant="accent" className="mb-4">
-            Engineering Portfolio
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Projects Showcase
-          </h1>
-          <p className="mt-6 text-base sm:text-lg text-zinc-400 leading-relaxed">
-            Open-source systems, campus utility platforms, IoT telemetry networks, and generative AI applications developed by NEXUS engineers.
-          </p>
-        </div>
+  return <ProjectsContent projects={projects} />;
+}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {projects.map((project) => (

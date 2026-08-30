@@ -1,18 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { siteConfig } from "@/data/site-config";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function RecruitmentCallout() {
   const { recruitment } = siteConfig;
+  const containerRef = useScrollReveal();
 
   return (
     <section className="py-24 bg-[#050507] border-b border-[#1c1c27] relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
 
       <Container size="xl" className="relative z-10">
-        <div className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#0e0e16] to-[#08080c] border border-[#222230] text-center max-w-4xl mx-auto space-y-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        <motion.div
+          ref={containerRef.elementRef}
+          className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#0e0e16] to-[#08080c] border border-[#222230] text-center max-w-4xl mx-auto space-y-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] scroll-reveal"
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={containerRef.isVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.5 }}
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/40 border border-blue-800/40 text-xs font-mono text-blue-300">
             <Sparkles className="h-3.5 w-3.5 animate-pulse text-blue-400" />
             <span>{recruitment.isOpen ? recruitment.deadline : "RECRUITMENT UPDATES"}</span>
@@ -56,7 +65,7 @@ export function RecruitmentCallout() {
             <span>•</span>
             <span>BUILD. LEAD. CONNECT.</span>
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
