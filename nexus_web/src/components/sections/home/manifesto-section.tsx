@@ -1,3 +1,5 @@
+"use client";
+
 import { Container } from "@/components/ui/container";
 import { BlueLine } from "@/components/ui/blue-line";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -15,7 +17,10 @@ export function ManifestoSection() {
       <Container size="xl">
         <div className="space-y-16">
           {/* Large Typographic Manifesto Header */}
-          <div ref={headerRef.elementRef} className="space-y-4 max-w-4xl scroll-reveal">
+          <div
+            ref={headerRef.elementRef}
+            className="space-y-4 max-w-4xl scroll-reveal"
+          >
             <div className="text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
               <span>THE NEXUS CREED</span>
@@ -28,7 +33,10 @@ export function ManifestoSection() {
               </span>
             </h2>
             <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
-              Our operating system rejects shallow hackathons and passive lectures. We cultivate engineers who design resilient software, govern high-ownership teams, and create lasting institutional value for RIT.
+              Our operating system rejects shallow hackathons and passive
+              lectures. We cultivate engineers who design resilient software,
+              govern high-ownership teams, and create lasting institutional
+              value for RIT.
             </p>
           </div>
 
@@ -44,7 +52,9 @@ export function ManifestoSection() {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl sm:text-3xl font-mono font-bold text-blue-400">01</span>
+                  <span className="text-2xl sm:text-3xl font-mono font-bold text-blue-400">
+                    01
+                  </span>
                   <div className="p-2 rounded-lg bg-blue-950/60 border border-blue-800/40 text-blue-400">
                     <Code2 className="h-5 w-5" />
                   </div>
@@ -56,7 +66,10 @@ export function ManifestoSection() {
                   Engineering Sovereignty
                 </p>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  We believe engineering credibility is earned through production code. We architect full-stack distributed systems, IoT telemetry grids, and intelligent agent frameworks that solve real-world problems.
+                  We believe engineering credibility is earned through
+                  production code. We architect full-stack distributed systems,
+                  IoT telemetry grids, and intelligent agent frameworks that
+                  solve real-world problems.
                 </p>
               </div>
 
@@ -74,7 +87,7 @@ export function ManifestoSection() {
                   <span>100% Open-Source Code Repositories</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* 02 / LEAD */}
             <motion.div
@@ -86,7 +99,9 @@ export function ManifestoSection() {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl sm:text-3xl font-mono font-bold text-indigo-400">02</span>
+                  <span className="text-2xl sm:text-3xl font-mono font-bold text-indigo-400">
+                    02
+                  </span>
                   <div className="p-2 rounded-lg bg-indigo-950/60 border border-indigo-800/40 text-indigo-400">
                     <ShieldCheck className="h-5 w-5" />
                   </div>
@@ -98,7 +113,10 @@ export function ManifestoSection() {
                   Institutional Ownership
                 </p>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  Technical brilliance without leadership lacks leverage. We develop student directors who manage club budgets, orchestrate multi-track tech summits, and lead high-stakes technical decisions.
+                  Technical brilliance without leadership lacks leverage. We
+                  develop student directors who manage club budgets, orchestrate
+                  multi-track tech summits, and lead high-stakes technical
+                  decisions.
                 </p>
               </div>
 
@@ -116,7 +134,7 @@ export function ManifestoSection() {
                   <span>Succession Across Tech Directors</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* 03 / CONNECT */}
             <motion.div
@@ -128,7 +146,9 @@ export function ManifestoSection() {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">03</span>
+                  <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">
+                    03
+                  </span>
                   <div className="p-2 rounded-lg bg-emerald-950/60 border border-emerald-800/40 text-emerald-400">
                     <Zap className="h-5 w-5" />
                   </div>
@@ -140,7 +160,9 @@ export function ManifestoSection() {
                   Ecosystem Scale
                 </p>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  No builder creates in a silo. NEXUS unites student developers, mentors, industry engineers, and alumni to accelerate opportunities and bring cutting-edge ideas into RIT.
+                  No builder creates in a silo. NEXUS unites student developers,
+                  mentors, industry engineers, and alumni to accelerate
+                  opportunities and bring cutting-edge ideas into RIT.
                 </p>
               </div>
 
@@ -158,7 +180,7 @@ export function ManifestoSection() {
                   <span>Lifelong Alumni Mentorship Network</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </Container>
