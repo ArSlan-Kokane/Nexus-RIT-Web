@@ -1,12 +1,11 @@
-import React from "react";
-import { getDepartments, getTeamMembers } from "@/lib/data";
-import { DepartmentInfo, TeamMember } from "@/types";
 import type { Metadata } from "next";
+import { getDepartments, getTeamMembers } from "@/lib/data";
 import TeamContent from "./team-content";
 
 export const metadata: Metadata = {
   title: "Team & Leadership",
-  description: "Meet the executive board and departmental directors of NEXUS — Innovation & Leadership Collective at RIT.",
+  description:
+    "Meet the executive board and departmental directors of NEXUS — Innovation & Leadership Collective at RIT.",
 };
 
 export default async function TeamPage() {

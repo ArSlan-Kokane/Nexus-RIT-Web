@@ -9,8 +9,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function HackathonPipeline() {
-  const headerRef = useScrollReveal();
-  const gridRef = useScrollReveal();
+  const {
+    elementRef: headerElementRef,
+    isVisible: isHeaderVisible,
+  } = useScrollReveal();
+  const {
+    elementRef: gridElementRef,
+    isVisible: isGridVisible,
+  } = useScrollReveal();
 
   const steps = [
     {
@@ -57,10 +63,10 @@ export function HackathonPipeline() {
         <div className="space-y-16">
           {/* Section Header */}
           <motion.div
-            ref={headerRef.elementRef}
+            ref={headerElementRef}
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-3 max-w-3xl">
@@ -117,10 +123,10 @@ export function HackathonPipeline() {
 
           {/* 6-Stage Process Pipeline Grid */}
           <motion.div
-            ref={gridRef.elementRef}
+            ref={gridElementRef}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={gridRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
             {steps.map((step, index) => (
@@ -128,7 +134,7 @@ export function HackathonPipeline() {
                 key={step.number}
                 className="p-6 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] hover:border-emerald-500/40 hover:bg-[#0e0e16] transition-all flex flex-col justify-between space-y-4 group relative"
                 initial={{ opacity: 0, y: 10 }}
-                animate={gridRef.isVisible ? { opacity: 1, y: 0 } : {}}
+                animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 {/* Step Node Connection */}

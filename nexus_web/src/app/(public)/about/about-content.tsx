@@ -10,18 +10,30 @@ import { CheckCircle2, Compass, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function AboutContent() {
-  const headerRef = useScrollReveal();
-  const missionRef = useScrollReveal({ delay: 0.1 });
-  const pillarsRef = useScrollReveal({ delay: 0.2 });
-  const institutionalRef = useScrollReveal({ delay: 0.3 });
+  const {
+    elementRef: headerElementRef,
+    isVisible: isHeaderVisible,
+  } = useScrollReveal();
+  const {
+    elementRef: missionElementRef,
+    isVisible: isMissionVisible,
+  } = useScrollReveal({ delay: 0.1 });
+  const {
+    elementRef: pillarsElementRef,
+    isVisible: isPillarsVisible,
+  } = useScrollReveal({ delay: 0.2 });
+  const {
+    elementRef: institutionalElementRef,
+    isVisible: isInstitutionalVisible,
+  } = useScrollReveal({ delay: 0.3 });
 
   return (
     <div className="flex flex-col w-full py-12 md:py-20 space-y-20">
       {/* 1. HEADER SECTION */}
       <motion.section
-        ref={headerRef.elementRef}
+        ref={headerElementRef}
         initial={{ opacity: 0, y: 20 }}
-        animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+        animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.4 }}
         className="scroll-reveal"
       >
@@ -45,10 +57,10 @@ export default function AboutContent() {
       <section className="bg-[#07070a] py-16 border-y border-[#1c1c27]">
         <Container size="lg">
           <motion.div
-            ref={missionRef.elementRef}
+            ref={missionElementRef}
             className="grid grid-cols-1 md:grid-cols-2 gap-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={missionRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isMissionVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <Card className="border-[#1f1f2c] bg-[#09090d] p-8 space-y-4">
@@ -112,10 +124,10 @@ export default function AboutContent() {
           />
 
           <motion.div
-            ref={pillarsRef.elementRef}
+            ref={pillarsElementRef}
             className="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={pillarsRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isPillarsVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <div className="p-6 rounded-xl bg-[#0c0c10] border border-[#1c1c27] space-y-4">
@@ -149,10 +161,10 @@ export default function AboutContent() {
       <section className="bg-[#07070a] py-16 border-t border-[#1c1c27]">
         <Container size="lg">
           <motion.div
-            ref={institutionalRef.elementRef}
+            ref={institutionalElementRef}
             className="rounded-xl bg-[#0c0c10] border border-[#1c1c27] p-8 sm:p-12 space-y-6 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={institutionalRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isInstitutionalVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <Badge variant="outline">Institutional Alignment</Badge>

@@ -9,7 +9,10 @@ import { motion } from "framer-motion";
 
 export function RecruitmentCallout() {
   const { recruitment } = siteConfig;
-  const containerRef = useScrollReveal();
+  const {
+    elementRef: containerElementRef,
+    isVisible: isContainerVisible,
+  } = useScrollReveal();
 
   return (
     <section className="py-24 bg-[#050507] border-b border-[#1c1c27] relative overflow-hidden">
@@ -17,10 +20,10 @@ export function RecruitmentCallout() {
 
       <Container size="xl" className="relative z-10">
         <motion.div
-          ref={containerRef.elementRef}
+          ref={containerElementRef}
           className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#0e0e16] to-[#08080c] border border-[#222230] text-center max-w-4xl mx-auto space-y-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] scroll-reveal"
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          animate={containerRef.isVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
+          animate={isContainerVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.5 }}
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/40 border border-blue-800/40 text-xs font-mono text-blue-300">

@@ -7,10 +7,19 @@ import { Code2, ShieldCheck, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function ManifestoSection() {
-  const headerRef = useScrollReveal();
-  const column1Ref = useScrollReveal();
-  const column2Ref = useScrollReveal();
-  const column3Ref = useScrollReveal();
+  const { elementRef: headerElementRef } = useScrollReveal();
+  const {
+    elementRef: column1ElementRef,
+    isVisible: isColumn1Visible,
+  } = useScrollReveal();
+  const {
+    elementRef: column2ElementRef,
+    isVisible: isColumn2Visible,
+  } = useScrollReveal();
+  const {
+    elementRef: column3ElementRef,
+    isVisible: isColumn3Visible,
+  } = useScrollReveal();
 
   return (
     <section className="py-24 bg-[#07070a] border-b border-[#1c1c27]">
@@ -18,7 +27,7 @@ export function ManifestoSection() {
         <div className="space-y-16">
           {/* Large Typographic Manifesto Header */}
           <div
-            ref={headerRef.elementRef}
+            ref={headerElementRef}
             className="space-y-4 max-w-4xl scroll-reveal"
           >
             <div className="text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold flex items-center gap-2">
@@ -44,10 +53,10 @@ export function ManifestoSection() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-[#1c1c27] rounded-2xl overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-[#1c1c27] bg-[#050507]">
             {/* 01 / BUILD */}
             <motion.div
-              ref={column1Ref.elementRef}
+              ref={column1ElementRef}
               className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
               initial={{ opacity: 0, x: -20 }}
-              animate={column1Ref.isVisible ? { opacity: 1, x: 0 } : {}}
+              animate={isColumn1Visible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
               <div className="space-y-4">
@@ -91,10 +100,10 @@ export function ManifestoSection() {
 
             {/* 02 / LEAD */}
             <motion.div
-              ref={column2Ref.elementRef}
+              ref={column2ElementRef}
               className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
               initial={{ opacity: 0, y: 20 }}
-              animate={column2Ref.isVisible ? { opacity: 1, y: 0 } : {}}
+              animate={isColumn2Visible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
               <div className="space-y-4">
@@ -138,10 +147,10 @@ export function ManifestoSection() {
 
             {/* 03 / CONNECT */}
             <motion.div
-              ref={column3Ref.elementRef}
+              ref={column3ElementRef}
               className="p-8 sm:p-12 space-y-6 flex flex-col justify-between hover:bg-[#0a0a0f] transition-colors scroll-reveal"
               initial={{ opacity: 0, x: 20 }}
-              animate={column3Ref.isVisible ? { opacity: 1, x: 0 } : {}}
+              animate={isColumn3Visible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
               <div className="space-y-4">

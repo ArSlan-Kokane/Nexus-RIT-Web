@@ -7,17 +7,23 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { EventItem } from "@/types";
 import { ArrowRight, ArrowUpRight, Calendar, MapPin } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 interface EventTimelineProps {
   events: EventItem[];
 }
 
 export function EventTimeline({ events }: EventTimelineProps) {
-  const headerRef = useScrollReveal();
-  const timelineRef = useScrollReveal();
+  const {
+    elementRef: headerElementRef,
+    isVisible: isHeaderVisible,
+  } = useScrollReveal();
+  const {
+    elementRef: timelineElementRef,
+    isVisible: isTimelineVisible,
+  } = useScrollReveal();
 
-  const pulseVariants = {
+  const pulseVariants: Variants = {
     pulse: {
       scale: [1, 1.1, 1],
       opacity: [1, 0.8, 1],
@@ -35,10 +41,10 @@ export function EventTimeline({ events }: EventTimelineProps) {
         <div className="space-y-16">
           {/* Section Header */}
           <motion.div
-            ref={headerRef.elementRef}
+            ref={headerElementRef}
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-3 max-w-3xl">
@@ -65,10 +71,10 @@ export function EventTimeline({ events }: EventTimelineProps) {
 
           {/* Chronological Timeline Layout */}
           <motion.div
-            ref={timelineRef.elementRef}
+            ref={timelineElementRef}
             className="space-y-8 relative scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={timelineRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isTimelineVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
             {events.map((event, index) => {
@@ -83,7 +89,7 @@ export function EventTimeline({ events }: EventTimelineProps) {
                       : "bg-[#060608] border-[#1c1c27] opacity-80 hover:opacity-100"
                   }`}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={timelineRef.isVisible ? { opacity: 1, x: 0 } : {}}
+                  animate={isTimelineVisible ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">

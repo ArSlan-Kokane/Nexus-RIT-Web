@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SCROLL_REVEAL_THRESHOLD, SCROLL_REVEAL_ROOT_MARGIN, REDUCED_MOTION_DURATION } from "@/lib/constants/animation";
+import {
+  REDUCED_MOTION_DURATION,
+  SCROLL_REVEAL_ROOT_MARGIN,
+  SCROLL_REVEAL_THRESHOLD,
+} from "@/lib/constants/animation";
 
 interface ScrollRevealOptions {
   threshold?: number;
@@ -19,44 +23,62 @@ export function useScrollReveal(options: ScrollRevealOptions = {}) {
   } = options;
 
   const [isVisible, setIsVisible] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const elementRef = useRef<HTMLElement>(null);
+  const [isReducedMotion, setIsReducedMotion] = useState(() =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Check for reduced motion preference
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsReducedMotion(reducedMotionQuery.matches);
-
     const element = elementRef.current;
-    if (!element) return;
+    let revealTimeout: number | undefined;
+
+    const handleMotionPreferenceChange = (event: MediaQueryListEvent) => {
+      setIsReducedMotion(event.matches);
+    };
+
+    reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
+
+    if (!element) {
+      return () => {
+        reducedMotionQuery.removeEventListener("change", handleMotionPreferenceChange);
+      };
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // For reduced motion, show immediately with very short delay
-            const actualDelay = isReducedMotion ? REDUCED_MOTION_DURATION : delay * 1000;
-            setTimeout(() => {
+            if (revealTimeout) window.clearTimeout(revealTimeout);
+            const revealDelay = reducedMotionQuery.matches
+              ? REDUCED_MOTION_DURATION
+              : delay * 1000;
+
+            revealTimeout = window.setTimeout(() => {
               setIsVisible(true);
-            }, actualDelay);
+            }, revealDelay);
 
             if (triggerOnce) {
               observer.unobserve(element);
             }
           } else if (!triggerOnce) {
+            if (revealTimeout) window.clearTimeout(revealTimeout);
             setIsVisible(false);
           }
         });
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(element);
 
     return () => {
+      if (revealTimeout) window.clearTimeout(revealTimeout);
       observer.disconnect();
+      reducedMotionQuery.removeEventListener("change", handleMotionPreferenceChange);
     };
-  }, [threshold, rootMargin, triggerOnce, delay, isReducedMotion]);
+  }, [threshold, rootMargin, triggerOnce, delay]);
 
   return { elementRef, isVisible, isReducedMotion };
 }

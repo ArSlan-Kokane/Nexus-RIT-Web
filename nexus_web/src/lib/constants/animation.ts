@@ -1,4 +1,4 @@
-import { AnimationConfig, AnimationTiming, PageTransition } from "@/types";
+import { AnimationTiming, PageTransition } from "@/types";
 
 export const ANIMATION_TIMING: AnimationTiming = {
   fast: {

@@ -8,7 +8,7 @@ import { ProjectItem } from "@/types";
 import { ArrowRight, ArrowUpRight, Code2, Terminal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface ProjectGalleryProps {
   projects: ProjectItem[];
@@ -16,8 +16,14 @@ interface ProjectGalleryProps {
 
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
-  const headerRef = useScrollReveal();
-  const gridRef = useScrollReveal();
+  const {
+    elementRef: headerElementRef,
+    isVisible: isHeaderVisible,
+  } = useScrollReveal();
+  const {
+    elementRef: gridElementRef,
+    isVisible: isGridVisible,
+  } = useScrollReveal();
 
   const expandedVariants = {
     collapsed: {
@@ -36,10 +42,10 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
         <div className="space-y-16">
           {/* Section Header */}
           <motion.div
-            ref={headerRef.elementRef}
+            ref={headerElementRef}
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-3 max-w-3xl">
@@ -66,10 +72,10 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
 
           {/* Asymmetric Full-Width Editorial Project Dossiers */}
           <motion.div
-            ref={gridRef.elementRef}
+            ref={gridElementRef}
             className="space-y-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={gridRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
             {projects.slice(0, 3).map((project, index) => {

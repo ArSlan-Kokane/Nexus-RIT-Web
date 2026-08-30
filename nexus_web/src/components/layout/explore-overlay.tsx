@@ -254,7 +254,7 @@ export function ExploreOverlay({ isOpen, onClose, triggerRef }: ExploreOverlayPr
                   }
                 }}
               >
-                {category.links.map((link, index) => {
+                {category.links.map((link) => {
                   const Icon = link.icon;
                   return (
                     <motion.div

@@ -7,7 +7,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ export function MobileNav() {
   const menuRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  const drawerVariants = {
+  const drawerVariants: Variants = {
     hidden: {
       x: "100%",
       opacity: 0,
@@ -31,7 +31,7 @@ export function MobileNav() {
     }
   };
 
-  const linkVariants = {
+  const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
     visible: {
       opacity: 1,

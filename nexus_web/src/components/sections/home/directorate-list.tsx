@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 interface DirectorateListProps {
   departments: DepartmentInfo[];
@@ -37,7 +37,10 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
   const [activeDeptKey, setActiveDeptKey] = useState<string>(
     departments[1]?.key || departments[0]?.key || "TECHNOLOGY"
   );
-  const headerRef = useScrollReveal();
+  const {
+    elementRef: headerElementRef,
+    isVisible: isHeaderVisible,
+  } = useScrollReveal();
 
   const activeDept =
     departments.find((d) => d.key === activeDeptKey) || departments[0];
@@ -64,7 +67,7 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [departments, activeDeptKey]);
 
-  const contentVariants = {
+  const contentVariants: Variants = {
     enter: {
       x: 0,
       opacity: 1,
@@ -89,10 +92,10 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
         <div className="space-y-12">
           {/* Section Header */}
           <motion.div
-            ref={headerRef.elementRef}
+            ref={headerElementRef}
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
             initial={{ opacity: 0, y: 20 }}
-            animate={headerRef.isVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-3 max-w-2xl">
