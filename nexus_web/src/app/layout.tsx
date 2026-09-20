@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { CursorSparkles } from "@/components/layout/cursor-sparkles";
 import { CyberspaceEntry } from "@/components/layout/cyberspace-entry";
 import { PageTransition } from "@/components/ui/page-transition";
+import { AdminLayoutClient } from "@/components/admin/admin-layout-client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -66,11 +67,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark antialiased scroll-smooth`}
     >
       <body className="min-h-screen flex flex-col bg-[#050507] text-[#f4f4f6]">
-        <CyberspaceEntry />
-        <CursorSparkles />
-        <PageTransition>
-          {children}
-        </PageTransition>
+        <AdminLayoutClient>
+          <CyberspaceEntry />
+          <CursorSparkles />
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </AdminLayoutClient>
       </body>
     </html>
   );
