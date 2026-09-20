@@ -153,7 +153,10 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-[#1c1c27] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
-          <p>© {currentYear} NEXUS — Innovation & Leadership Collective. All rights reserved.</p>
+          <div className="flex flex-col items-center sm:items-start gap-1">
+            <p>© {currentYear} NEXUS — Innovation & Leadership Collective. All rights reserved.</p>
+            <p className="text-[11px] text-zinc-600 tracking-wide">Made with <span className="text-rose-400">❤️</span> by Arslan Kokane</p>
+          </div>
           <div className="flex items-center gap-4">
             <span>RIT</span>
             <span>•</span>

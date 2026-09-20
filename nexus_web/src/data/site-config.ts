@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
   },
   contact: {
     email: "[Official email — to be added]",
-    facultyCoordinator: "[Faculty Coordinator — to be added]",
+    facultyCoordinator: "Gautami Shingan",
     instagram: "[Instagram — to be added]",
     github: "https://github.com/nexus-rit",
     linkedin: "https://linkedin.com/company/nexus-rit",

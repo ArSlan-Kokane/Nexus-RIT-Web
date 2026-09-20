@@ -16,6 +16,7 @@ export function useCursorPosition() {
     const clearCursorPosition = () => {
       document.documentElement.style.removeProperty("--cursor-x");
       document.documentElement.style.removeProperty("--cursor-y");
+      document.documentElement.classList.remove("has-neon-cursor");
     };
 
     const handlePointerMove = (event: PointerEvent) => {
@@ -44,6 +45,7 @@ export function useCursorPosition() {
       if (nextEnabled === enabled) return;
       enabled = nextEnabled;
       setIsEnabled(nextEnabled);
+      document.documentElement.classList.toggle("has-neon-cursor", nextEnabled);
 
       if (nextEnabled) {
         window.addEventListener("pointermove", handlePointerMove, { passive: true });

@@ -6,7 +6,6 @@ import { BlueLine } from "@/components/ui/blue-line";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { EventItem } from "@/types";
 import { ArrowRight, ArrowUpRight, Calendar, MapPin } from "lucide-react";
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 
 interface EventTimelineProps {
@@ -42,7 +41,7 @@ export function EventTimeline({ events }: EventTimelineProps) {
           {/* Section Header */}
           <motion.div
             ref={headerElementRef}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -61,18 +60,16 @@ export function EventTimeline({ events }: EventTimelineProps) {
               </p>
             </div>
 
-            <Link href="/events">
-              <Button variant="outline" size="sm" className="font-mono text-xs">
-                <span>View Complete Event Archive</span>
-                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-              </Button>
-            </Link>
+            <Button href="/events" variant="outline" size="sm" className="font-mono text-xs">
+              <span>View Complete Event Archive</span>
+              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+            </Button>
           </motion.div>
 
           {/* Chronological Timeline Layout */}
           <motion.div
             ref={timelineElementRef}
-            className="space-y-8 relative scroll-reveal"
+            className="space-y-8 relative"
             initial={{ opacity: 0, y: 20 }}
             animate={isTimelineVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.1 }}

@@ -105,6 +105,27 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
+      <motion.div
+        className="hero-ascii-visual"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: isContentVisible ? 1 : 0, scale: isContentVisible ? 1 : 0.9 }}
+        transition={{ duration: 0.8, delay: 0.35 }}
+        aria-hidden="true"
+      >
+        <div className="hero-ascii-orbit hero-ascii-orbit-one" />
+        <div className="hero-ascii-orbit hero-ascii-orbit-two" />
+        <motion.pre
+          className="hero-ascii-mark"
+          animate={{ rotateY: [0, 360], rotateZ: [-4, 4, -4] }}
+          transition={{ rotateY: { duration: 18, repeat: Infinity, ease: "linear" }, rotateZ: { duration: 6, repeat: Infinity, ease: "easeInOut" } }}
+        >{`╱╲
+╱  ╲
+│ N │
+╲  ╱
+ ╲╱`}</motion.pre>
+        <span className="hero-ascii-label">NEXUS // ACTIVE</span>
+      </motion.div>
+
       <div className="absolute top-1/3 left-1/2 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[140px] pointer-events-none" />
 
       <Container size="xl" className="relative z-10">

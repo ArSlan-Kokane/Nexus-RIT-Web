@@ -4,7 +4,6 @@ import { Container } from "@/components/ui/container";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { siteConfig } from "@/data/site-config";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function RecruitmentCallout() {
@@ -21,7 +20,7 @@ export function RecruitmentCallout() {
       <Container size="xl" className="relative z-10">
         <motion.div
           ref={containerElementRef}
-          className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#0e0e16] to-[#08080c] border border-[#222230] text-center max-w-4xl mx-auto space-y-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] scroll-reveal"
+          className="p-10 sm:p-16 rounded-3xl bg-gradient-to-b from-[#0e0e16] to-[#08080c] border border-[#222230] text-center max-w-4xl mx-auto space-y-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={isContainerVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.5 }}
@@ -44,24 +43,26 @@ export function RecruitmentCallout() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             {recruitment.isOpen && (
-              <a
+              <Button
                 href={recruitment.googleFormUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto"
+                external
+                size="lg"
+                variant="primary"
+                className="w-full sm:w-auto h-14 px-8 text-sm font-semibold"
               >
-                <Button size="lg" variant="primary" className="w-full sm:w-auto h-14 px-8 text-sm font-semibold">
-                  <span>Submit Google Form Application</span>
-                  <ArrowUpRight className="h-4 w-4 ml-2" />
-                </Button>
-              </a>
-            )}
-            <Link href="/about" className="w-full sm:w-auto">
-              <Button size="lg" variant="secondary" className="w-full sm:w-auto h-14 px-8 text-sm">
-                <span>Explore Organization Charter</span>
-                <ArrowRight className="h-4 w-4 ml-2" />
+                <span>Submit Google Form Application</span>
+                <ArrowUpRight className="h-4 w-4 ml-2" />
               </Button>
-            </Link>
+            )}
+            <Button
+              href="/about"
+              size="lg"
+              variant="secondary"
+              className="w-full sm:w-auto h-14 px-8 text-sm"
+            >
+              <span>Explore Organization Charter</span>
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
           </div>
 
           <div className="pt-8 border-t border-[#1c1c27] flex items-center justify-center gap-4 text-xs font-mono text-zinc-500">

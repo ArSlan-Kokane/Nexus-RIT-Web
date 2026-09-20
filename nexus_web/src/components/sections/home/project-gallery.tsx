@@ -6,7 +6,6 @@ import { BlueLine } from "@/components/ui/blue-line";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { ProjectItem } from "@/types";
 import { ArrowRight, ArrowUpRight, Code2, Terminal } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -43,7 +42,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
           {/* Section Header */}
           <motion.div
             ref={headerElementRef}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -62,18 +61,16 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               </p>
             </div>
 
-            <Link href="/projects">
-              <Button variant="outline" size="sm" className="font-mono text-xs">
-                <span>View Full Project Archive</span>
-                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-              </Button>
-            </Link>
+            <Button href="/projects" variant="outline" size="sm" className="font-mono text-xs">
+              <span>View Full Project Archive</span>
+              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+            </Button>
           </motion.div>
 
           {/* Asymmetric Full-Width Editorial Project Dossiers */}
           <motion.div
             ref={gridElementRef}
-            className="space-y-8 scroll-reveal"
+            className="space-y-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.1 }}

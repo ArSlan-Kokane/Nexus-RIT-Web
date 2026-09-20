@@ -225,6 +225,21 @@
   pointer-events: none;
 }
 
+/* Hide native pointer on mouse devices so ONLY the custom glowing triangle arrow is visible */
+@media (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  * {
+    cursor: none !important;
+  }
+}
+
 /* Layered cursor treatment */
 .ambient-cursor-glow {
   position: fixed;
@@ -393,9 +408,8 @@
 
 /* Scroll reveal animations */
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 1;
+  transform: none;
 }
 
 .scroll-reveal.is-visible {
@@ -444,28 +458,13 @@
   }
 }
 
+/* Native cursor is preserved. Custom cursor provides an augmented overlay without hiding native pointer. */
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  body,
+  /* Retain native cursor pointers and styles */
   button,
   a,
-  [role="button"],
-  input,
-  textarea,
-  select {
-    cursor: none;
-  }
-
-  /* Interactive cursor states */
-  [data-cursor="interactive"] {
+  [role="button"] {
     cursor: pointer;
-  }
-  
-  [data-cursor="text"] {
-    cursor: text;
-  }
-  
-  [data-cursor="default"] {
-    cursor: default;
   }
 }
 
@@ -513,5 +512,119 @@
     opacity: 1;
     transform: none;
     animation: none;
+  }
+}
+
+/* Use the neon SVG as the sole pointer while the enhanced cursor is active. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .has-neon-cursor,
+  .has-neon-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Persistent ASCII reactor that fills the hero's open field without competing with the copy. */
+.hero-ascii-visual {
+  position: absolute;
+  top: 50%;
+  right: clamp(2rem, 8vw, 9rem);
+  width: clamp(220px, 28vw, 360px);
+  height: clamp(220px, 28vw, 360px);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  perspective: 900px;
+  color: rgba(147, 197, 253, 0.72);
+  transform: translateY(-42%);
+}
+.hero-ascii-mark {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: rgba(226, 232, 240, 0.82);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.7), 0 0 28px rgba(59, 130, 246, 0.35);
+  transform-style: preserve-3d;
+}
+.hero-ascii-orbit {
+  position: absolute;
+  border: 1px solid rgba(96, 165, 250, 0.24);
+  border-radius: 999px;
+  transform: rotate(-24deg);
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.1);
+}
+.hero-ascii-orbit::before,
+.hero-ascii-orbit::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #bfdbfe;
+  box-shadow: 0 0 10px 3px rgba(96, 165, 250, 0.8);
+}
+.hero-ascii-orbit::before {
+  top: -3px;
+  left: 22%;
+}
+.hero-ascii-orbit::after {
+  right: 14%;
+  bottom: -3px;
+}
+.hero-ascii-orbit-one {
+  width: 92%;
+  height: 38%;
+  animation: hero-ascii-orbit 9s linear infinite;
+}
+.hero-ascii-orbit-two {
+  width: 38%;
+  height: 92%;
+  transform: rotate(58deg);
+  border-color: rgba(167, 243, 208, 0.18);
+  animation: hero-ascii-orbit-reverse 13s linear infinite;
+}
+.hero-ascii-label {
+  position: absolute;
+  right: 4%;
+  bottom: 12%;
+  color: rgba(147, 197, 253, 0.5);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+@keyframes hero-ascii-orbit {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+@keyframes hero-ascii-orbit-reverse {
+  from { rotate: 58deg; }
+  to { rotate: -302deg; }
+}
+@media (max-width: 767px) {
+  .hero-ascii-visual {
+    top: auto;
+    right: 1rem;
+    bottom: 3rem;
+    width: 150px;
+    height: 150px;
+    opacity: 0.36 !important;
+    transform: none;
+  }
+  .hero-ascii-label {
+    font-size: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ascii-visual,
+  .hero-ascii-orbit-one,
+  .hero-ascii-orbit-two {
+    animation: none;
+  }
+  .hero-ascii-mark {
+    transform: none !important;
   }
 }

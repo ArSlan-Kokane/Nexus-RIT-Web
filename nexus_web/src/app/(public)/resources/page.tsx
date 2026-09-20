@@ -1,69 +1,118 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { getResources } from "@/lib/data";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Terminal } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Resources & Roadmaps",
-  description: "Curated learning roadmaps, starter templates, and cheat sheets for student engineers at RIT.",
+  title: "Resource Terminal & Engineering Toolkits",
+  description:
+    "Curated technical roadmaps, production starter templates, and cheat sheets for student engineers at RIT.",
 };
 
 export default async function ResourcesPage() {
   const resources = await getResources();
 
+  // Group by category
+  const categories = Array.from(new Set(resources.map((r) => r.category)));
+
   return (
-    <div className="flex flex-col w-full py-12 md:py-20 space-y-12">
-      <Container size="lg">
-        <div className="max-w-3xl">
-          <Badge variant="accent" className="mb-4">
-            Curated Knowledge Base
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Developer Resources
-          </h1>
-          <p className="mt-6 text-base sm:text-lg text-zinc-400 leading-relaxed">
-            High-leverage roadmaps, distributed systems fundamentals, hackathon boilerplate scaffolds, and applied AI toolkits curated by NEXUS.
-          </p>
+    <div className="flex flex-col w-full py-12 md:py-20 space-y-16">
+      {/* 1. Header */}
+      <Container size="xl">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#1c1c27] pb-8">
+          <div className="max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-800/40 text-xs font-mono text-blue-300">
+              <Terminal className="h-3.5 w-3.5 text-blue-400" />
+              <span>NEXUS KNOWLEDGE TERMINAL // TOOLKITS</span>
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase">
+              Resource Terminal
+            </h1>
+            <p className="text-base sm:text-lg text-zinc-400 leading-relaxed font-normal">
+              High-leverage engineering roadmaps, distributed system patterns, hackathon production scaffolds, and machine learning toolkits curated for RIT builders.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 text-xs font-mono text-zinc-400 shrink-0">
+            <div className="p-3 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] text-center min-w-[110px]">
+              <div className="text-xl font-bold text-white">{resources.length}</div>
+              <div className="text-[10px] text-zinc-500 uppercase mt-0.5">Indexed Toolkits</div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {resources.map((res) => (
-            <Card key={res.id} hoverable className="bg-[#0a0a0e] border-[#1f1f2c] flex flex-col justify-between">
-              <CardHeader className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="accent">{res.type}</Badge>
-                  <span className="text-xs font-mono text-zinc-500">{res.category}</span>
-                </div>
-                <CardTitle className="text-xl text-white">{res.title}</CardTitle>
-                <CardDescription className="text-xs text-zinc-300 leading-relaxed">
-                  {res.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4 pt-2">
-                <div className="flex flex-wrap gap-1.5">
-                  {res.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
-                      {tag}
-                    </span>
-                  ))}
+        {/* 2. Resource Terminal Ledger by Category */}
+        <div className="mt-12 space-y-12">
+          {categories.map((category) => {
+            const categoryResources = resources.filter((r) => r.category === category);
+
+            return (
+              <div key={category} className="space-y-4">
+                <div className="flex items-center justify-between border-b border-[#1c1c27] pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="h-2 w-2 rounded-full bg-blue-400" />
+                    <h2 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                      {category}
+                    </h2>
+                  </div>
+                  <span className="text-xs font-mono text-zinc-500">
+                    {categoryResources.length} ITEMS
+                  </span>
                 </div>
 
-                <div className="pt-3 border-t border-[#1c1c27]">
-                  <a
-                    href={res.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-blue-400 hover:text-blue-300 font-medium inline-flex items-center gap-1.5"
-                  >
-                    Access Resource
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </a>
+                <div className="divide-y divide-[#1c1c27] border border-[#1c1c27] rounded-2xl overflow-hidden bg-[#07070b]">
+                  {categoryResources.map((res, idx) => (
+                    <div
+                      key={res.id}
+                      className="p-6 sm:p-8 hover:bg-[#0c0c14] transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+                    >
+                      <div className="space-y-2 lg:max-w-3xl">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-zinc-600 font-bold">
+                            0{idx + 1}
+                          </span>
+                          <Badge variant="accent">{res.type}</Badge>
+                        </div>
+
+                        <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                          {res.title}
+                        </h3>
+
+                        <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                          {res.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {res.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#101018] text-zinc-400 border border-zinc-800"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="shrink-0 flex items-center">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          href={res.url}
+                          className="font-mono text-xs h-9 px-4"
+                        >
+                          <span>Access Toolkit</span>
+                          <ArrowUpRight className="h-3.5 w-3.5 ml-1.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </Container>
     </div>

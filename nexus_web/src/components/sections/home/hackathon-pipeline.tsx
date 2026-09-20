@@ -5,7 +5,6 @@ import { Container } from "@/components/ui/container";
 import { BlueLine } from "@/components/ui/blue-line";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { ArrowRight, MessageCircle, Send, Trophy } from "lucide-react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function HackathonPipeline() {
@@ -64,7 +63,7 @@ export function HackathonPipeline() {
           {/* Section Header */}
           <motion.div
             ref={headerElementRef}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -90,77 +89,83 @@ export function HackathonPipeline() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <a
+              <Button
                 href="https://whatsapp.com/channel/0029VbDMvGCIyPtZvvAWLG19"
-                target="_blank"
-                rel="noopener noreferrer"
+                external
+                variant="primary"
+                size="sm"
+                className="bg-emerald-600 hover:bg-emerald-500 text-xs font-mono"
               >
-                <Button
-                  variant="primary"
-                  size="sm"
-                  className="bg-emerald-600 hover:bg-emerald-500 text-xs font-mono"
-                >
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  <span>Join WhatsApp Hub</span>
-                </Button>
-              </a>
-              <a
+                <MessageCircle className="h-4 w-4 mr-2" />
+                <span>Join WhatsApp Hub</span>
+              </Button>
+              <Button
                 href="https://t.me/+Qwumk5Ux15JmMTg9"
-                target="_blank"
-                rel="noopener noreferrer"
+                external
+                variant="secondary"
+                size="sm"
+                className="border-sky-500/30 bg-sky-500/10 text-sky-200 hover:bg-sky-500/20 hover:border-sky-400/60"
               >
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="border-sky-500/30 bg-sky-500/10 text-sky-200 hover:bg-sky-500/20 hover:border-sky-400/60"
-                >
-                  <Send className="h-4 w-4 mr-2 text-sky-400" />
-                  <span>Join Telegram</span>
-                </Button>
-              </a>
+                <Send className="h-4 w-4 mr-2 text-sky-400" />
+                <span>Join Telegram</span>
+              </Button>
             </div>
           </motion.div>
 
-          {/* 6-Stage Process Pipeline Grid */}
-          <motion.div
-            ref={gridElementRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 scroll-reveal"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          >
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                className="p-6 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] hover:border-emerald-500/40 hover:bg-[#0e0e16] transition-all flex flex-col justify-between space-y-4 group relative"
-                initial={{ opacity: 0, y: 10 }}
-                animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                {/* Step Node Connection */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-mono font-bold text-emerald-400">
-                      {step.number}
-                    </span>
-                    <span className="h-2 w-2 rounded-full bg-zinc-700 group-hover:bg-emerald-400 transition-colors" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-white uppercase tracking-tight group-hover:text-emerald-300 transition-colors">
-                      {step.title}
-                    </h3>
-                    <p className="text-[11px] font-mono text-zinc-500 mt-0.5 uppercase">
-                      {step.subtitle}
-                    </p>
-                  </div>
-                </div>
+          {/* 6-Stage Process Pipeline with Connected Horizontal Rail */}
+          <div className="relative">
+            {/* Desktop Connecting Rail */}
+            <div 
+              className="hidden lg:block absolute top-10 left-8 right-8 h-[2px] bg-gradient-to-r from-emerald-500/20 via-emerald-400/50 to-emerald-500/20 pointer-events-none z-0"
+              aria-hidden="true"
+            >
+              {/* Rail Pulse Motion */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-400 to-transparent w-32 animate-[pulse_3s_ease-in-out_infinite]" />
+            </div>
 
-                <p className="text-xs text-zinc-400 leading-relaxed pt-2 border-t border-[#1c1c27]">
-                  {step.desc}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
+            <motion.div
+              ref={gridElementRef}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  className="p-6 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] hover:border-emerald-500/40 hover:bg-[#0e0e16] transition-all flex flex-col justify-between space-y-4 group relative shadow-sm"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isGridVisible ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  {/* Step Node Connection */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-mono font-bold text-emerald-400">
+                        {step.number}
+                      </span>
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-20 group-hover:opacity-75" />
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-zinc-700 group-hover:bg-emerald-400 transition-colors" />
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-white uppercase tracking-tight group-hover:text-emerald-300 transition-colors">
+                        {step.title}
+                      </h3>
+                      <p className="text-[11px] font-mono text-zinc-500 mt-0.5 uppercase">
+                        {step.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-zinc-400 leading-relaxed pt-2 border-t border-[#1c1c27]">
+                    {step.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
           {/* Bottom Resource Callout */}
           <div className="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/20 via-[#0c0c10] to-[#050507] border border-emerald-900/30 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -174,12 +179,15 @@ export function HackathonPipeline() {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/hackathons">
-                <Button variant="outline" size="sm" className="text-xs font-mono">
-                  <span>Explore Hackathon Portal</span>
-                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-                </Button>
-              </Link>
+              <Button
+                href="/hackathons"
+                variant="outline"
+                size="sm"
+                className="text-xs font-mono border-emerald-800/40 text-emerald-300 hover:bg-emerald-950/40"
+              >
+                <span>Explore Hackathon Portal</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+              </Button>
             </div>
           </div>
         </div>

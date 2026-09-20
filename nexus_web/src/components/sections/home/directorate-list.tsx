@@ -69,19 +69,19 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
 
   const contentVariants: Variants = {
     enter: {
-      x: 0,
+      y: 0,
       opacity: 1,
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
+        duration: 0.2,
+        ease: "easeOut",
       },
     },
     exit: {
-      x: -20,
+      y: -4,
       opacity: 0,
       transition: {
-        x: { duration: 0.15 },
-        opacity: { duration: 0.15 },
+        duration: 0.1,
+        ease: "easeIn",
       },
     },
   };
@@ -93,7 +93,7 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
           {/* Section Header */}
           <motion.div
             ref={headerElementRef}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8 scroll-reveal"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1c1c27] pb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -133,6 +133,8 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
                   <button
                     key={dept.key}
                     onClick={() => setActiveDeptKey(dept.key)}
+                    onMouseEnter={() => setActiveDeptKey(dept.key)}
+                    onFocus={() => setActiveDeptKey(dept.key)}
                     className={`w-full text-left p-5 sm:p-6 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between group ${
                       isActive
                         ? "bg-[#111118] border-blue-500/50 shadow-[0_0_25px_rgba(59,130,246,0.1)]"
@@ -231,7 +233,9 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
                           </div>
                           <div>
                             <div className="text-base font-bold text-white">
-                              {activeLead.name}
+                              {activeLead.name.includes("TBD")
+                                ? "Directorate Appointee Pending"
+                                : activeLead.name}
                             </div>
                             <div className="text-xs text-blue-400 font-mono">
                               {activeLead.role}
@@ -239,7 +243,9 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
                           </div>
                         </div>
                         <span className="text-[11px] font-mono text-zinc-500">
-                          {activeLead.tenure}
+                          {activeLead.name.includes("TBD")
+                            ? "Spring 2026 Induction"
+                            : activeLead.tenure}
                         </span>
                       </div>
                     </div>
@@ -274,11 +280,9 @@ export function DirectorateList({ departments, members }: DirectorateListProps) 
                       <span>Explore Division in Team Directory</span>
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
-                    <Link href="/join">
-                      <Button size="sm" variant="secondary" className="text-xs h-8">
-                        Apply for this Track
-                      </Button>
-                    </Link>
+                    <Button href="/join" size="sm" variant="secondary" className="text-xs h-8">
+                      Apply for this Track
+                    </Button>
                   </div>
                 </motion.div>
               )}

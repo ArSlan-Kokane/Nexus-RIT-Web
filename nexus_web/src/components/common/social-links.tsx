@@ -42,6 +42,22 @@ function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function isValidSocialUrl(url?: string): boolean {
+  if (!url) return false;
+  if (url.includes("[") || url.includes("placeholder")) return false;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol === "mailto:") return true;
+    // Discard root domains with no username/path
+    if (!parsed.pathname || parsed.pathname === "/" || parsed.pathname === "") {
+      return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function SocialLinks({
   socials,
   className,
@@ -60,7 +76,7 @@ export function SocialLinks({
       url: socials.email && !socials.email.includes("[") ? `mailto:${socials.email}` : undefined,
       label: "Email",
     },
-  ].filter((item) => Boolean(item.url && !item.url.includes("[")));
+  ].filter((item) => isValidSocialUrl(item.url));
 
   if (items.length === 0) return null;
 

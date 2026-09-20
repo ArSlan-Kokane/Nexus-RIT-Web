@@ -1,14 +1,238 @@
-import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { getProjects } from "@/lib/data";
-import ProjectsContent from "./projects-content";
+import { ArrowUpRight, Code2, Sparkles, Terminal, Users } from "lucide-react";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects Showcase",
+  title: "Project Index & Codebases",
   description:
-    "Explore software platforms, IoT hardware, and AI tools built by NEXUS members at RIT.",
+    "Production-grade software platforms, embedded IoT telemetry grids, and AI tools built by NEXUS members at RIT.",
 };
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
-  return <ProjectsContent projects={projects} />;
+  const [flagship, ...otherProjects] = projects;
+
+  return (
+    <div className="flex flex-col w-full py-12 md:py-20 space-y-16">
+      {/* 1. Header */}
+      <Container size="xl">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#1c1c27] pb-8">
+          <div className="max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-800/40 text-xs font-mono text-blue-300">
+              <Terminal className="h-3.5 w-3.5 text-blue-400" />
+              <span>NEXUS OPEN REPOSITORY REGISTRY</span>
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase">
+              Project Index
+            </h1>
+            <p className="text-base sm:text-lg text-zinc-400 leading-relaxed font-normal">
+              Production-grade platforms, autonomous systems, and campus utilities designed, tested, and maintained by NEXUS student engineers.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-6 text-xs font-mono text-zinc-400 shrink-0">
+            <div className="p-3 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] text-center min-w-[100px]">
+              <div className="text-xl font-bold text-white">{projects.length}</div>
+              <div className="text-[10px] text-zinc-500 uppercase mt-0.5">Systems</div>
+            </div>
+            <div className="p-3 rounded-xl bg-[#0a0a0f] border border-[#1c1c27] text-center min-w-[100px]">
+              <div className="text-xl font-bold text-blue-400">100%</div>
+              <div className="text-[10px] text-zinc-500 uppercase mt-0.5">Open Source</div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Flagship Dossier */}
+        {flagship && (
+          <div className="mt-12 space-y-4">
+            <div className="flex items-center gap-2 text-xs font-mono text-blue-400 uppercase tracking-widest font-semibold">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>FLAGSHIP PRODUCTION PLATFORM</span>
+            </div>
+
+            <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0c0c16] via-[#08080d] to-[#050507] border border-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.08)] relative overflow-hidden space-y-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c1c27] pb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-mono font-bold text-blue-400">
+                    DOSSIER 001
+                  </span>
+                  <span className="text-zinc-600 font-mono">/</span>
+                  <Badge variant="accent">{flagship.category.replace(/_/g, " ")}</Badge>
+                </div>
+                <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
+                  <span>DEPLOYED: {flagship.completedYear}</span>
+                  <span>•</span>
+                  <span>{flagship.contributors.length} CONTRIBUTORS</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="lg:col-span-6 space-y-3">
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
+                    {flagship.title}
+                  </h2>
+                  <p className="text-xs font-mono text-blue-400">{flagship.tagline}</p>
+                  <p className="text-sm sm:text-base text-zinc-300 leading-relaxed pt-2">
+                    {flagship.description}
+                  </p>
+                </div>
+
+                <div className="lg:col-span-6 space-y-4 bg-[#07070c] p-6 rounded-2xl border border-[#1a1a24]">
+                  <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 font-bold block">
+                    Engineering Architecture Highlights:
+                  </span>
+                  {flagship.highlights && (
+                    <div className="space-y-2 text-xs font-mono text-zinc-300">
+                      {flagship.highlights.map((h, i) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <span className="text-blue-400 font-bold mt-0.5">►</span>
+                          <span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="pt-4 border-t border-[#1c1c27]">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase block mb-2">
+                      Core Technology Scaffolding:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {flagship.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[11px] font-mono px-2.5 py-1 rounded bg-[#101018] text-blue-300 border border-blue-900/40"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-[#1c1c27] flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+                  <Users className="h-3.5 w-3.5 text-zinc-500" />
+                  <span>Lead Engineers: {flagship.contributors.map((c) => c.name).join(", ")}</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  {flagship.githubUrl && (
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      href={flagship.githubUrl}
+                      className="font-mono text-xs"
+                    >
+                      <Code2 className="h-3.5 w-3.5 mr-1.5" />
+                      View Source
+                    </Button>
+                  )}
+                  {flagship.liveUrl && (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      href={flagship.liveUrl}
+                      className="font-mono text-xs"
+                    >
+                      <span>Launch Live System</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 ml-1.5" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 3. Detailed Dossier Catalog */}
+        <div className="mt-16 space-y-6">
+          <div className="flex items-center justify-between border-b border-[#1c1c27] pb-4">
+            <h3 className="text-sm font-mono uppercase tracking-widest text-zinc-400 font-bold">
+              Engineering Repositories ({otherProjects.length})
+            </h3>
+            <span className="text-xs font-mono text-zinc-600">PRODUCTION & INCUBATION</span>
+          </div>
+
+          <div className="space-y-4">
+            {otherProjects.map((project, idx) => (
+              <div
+                key={project.id}
+                className="p-6 sm:p-8 rounded-2xl bg-[#08080c] border border-[#1c1c27] hover:border-zinc-700 hover:bg-[#0c0c12] transition-all space-y-4"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#14141c] pb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-zinc-500 font-bold">
+                      DOSSIER 00{idx + 2}
+                    </span>
+                    <Badge variant="outline">{project.category.replace(/_/g, " ")}</Badge>
+                  </div>
+                  <div className="text-xs font-mono text-zinc-500">
+                    COMPLETED: {project.completedYear} • {project.contributors.length} CONTRIBUTORS
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                  <div className="lg:col-span-8 space-y-2">
+                    <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      {project.title}
+                    </h4>
+                    <p className="text-xs font-mono text-blue-400">{project.tagline}</p>
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {project.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#101016] text-zinc-400 border border-zinc-800"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between h-full gap-4">
+                    <div className="text-xs font-mono text-zinc-500 text-left lg:text-right">
+                      {project.contributors.map((c) => c.name).join(", ")}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {project.githubUrl && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          href={project.githubUrl}
+                          className="text-xs font-mono h-8"
+                        >
+                          <Code2 className="h-3 w-3 mr-1" />
+                          Code
+                        </Button>
+                      )}
+                      {project.liveUrl && (
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          href={project.liveUrl}
+                          className="text-xs font-mono h-8"
+                        >
+                          Live
+                          <ArrowUpRight className="h-3 w-3 ml-1" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
 }

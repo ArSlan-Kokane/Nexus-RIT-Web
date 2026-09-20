@@ -35,7 +35,7 @@ export default function AboutContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={isHeaderVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.4 }}
-        className="scroll-reveal"
+        className="max-w-4xl"
       >
         <Container size="lg">
           <div className="max-w-3xl">
@@ -58,7 +58,7 @@ export default function AboutContent() {
         <Container size="lg">
           <motion.div
             ref={missionElementRef}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 scroll-reveal"
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isMissionVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -125,7 +125,7 @@ export default function AboutContent() {
 
           <motion.div
             ref={pillarsElementRef}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-reveal"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isPillarsVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -162,7 +162,7 @@ export default function AboutContent() {
         <Container size="lg">
           <motion.div
             ref={institutionalElementRef}
-            className="rounded-xl bg-[#0c0c10] border border-[#1c1c27] p-8 sm:p-12 space-y-6 scroll-reveal"
+            className="rounded-xl bg-[#0c0c10] border border-[#1c1c27] p-8 sm:p-12 space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={isInstitutionalVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}

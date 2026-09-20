@@ -12,7 +12,7 @@ export default function PublicLayout({
     <div className="min-h-screen flex flex-col bg-[#050507] text-[#f4f4f6]">
       <AnnouncementBar />
       <Navbar />
-      <main className="flex-1 flex flex-col">{children}</main>
+      <main id="main-content" tabIndex={-1} className="flex-1 flex flex-col focus:outline-none">{children}</main>
       <Footer />
     </div>
   );
