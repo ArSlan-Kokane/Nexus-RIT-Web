@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { X, LayoutDashboard, Users, FolderKanban, Calendar, FileText, Settings, LogOut, Menu } from "lucide-react";
+import { X, LayoutDashboard, Users, FolderKanban, Calendar, FileText, Settings, LogOut, Menu, UserPlus } from "lucide-react";
 import { TeamManagement } from "./team-management";
 import { ProjectsManagement } from "./projects-management";
 import { EventsManagement } from "./events-management";
 import { ContentManagement } from "./content-management";
 import { SettingsContent } from "./settings-content";
+import { RecruitmentManagement } from "./recruitment-management";
 
 interface AdminPanelProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
   const navigation = [
     { id: "dashboard" as AdminSection, label: "Dashboard", icon: LayoutDashboard },
     { id: "team" as AdminSection, label: "Team Members", icon: Users },
+    { id: "recruitment" as AdminSection, label: "Recruitment", icon: UserPlus },
     { id: "projects" as AdminSection, label: "Projects", icon: FolderKanban },
     { id: "events" as AdminSection, label: "Events", icon: Calendar },
     { id: "content" as AdminSection, label: "All Content", icon: FileText },
@@ -99,6 +101,7 @@ export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
         <div className="flex-1 overflow-auto p-6">
           {activeSection === "dashboard" && <DashboardContent />}
           {activeSection === "team" && <TeamManagement />}
+          {activeSection === "recruitment" && <RecruitmentManagement />}
           {activeSection === "projects" && <ProjectsManagement />}
           {activeSection === "events" && <EventsManagement />}
           {activeSection === "content" && <ContentManagement />}
@@ -116,7 +119,7 @@ function DashboardContent() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Team Members" value="5" change="Core Leadership" />
         <StatCard title="Active Projects" value="3" change="Featured Projects" />
-        <StatCard title="Data Sections" value="6" change="All Content Areas" />
+        <StatCard title="Recruitment" value="Active" change="New Applications" />
         <StatCard title="Departments" value="5" change="Full Organization" />
       </div>
 
@@ -124,29 +127,29 @@ function DashboardContent() {
         <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <QuickActionButton 
+            title="View Applications" 
+            description="Review recruitment applications"
+            icon="�"
+          />
+          <QuickActionButton 
             title="Add Team Member" 
             description="Add new team member to organization"
-            icon="👥"
+            icon="�"
           />
           <QuickActionButton 
             title="Create Project" 
             description="Add new project to portfolio"
-            icon="🚀"
+            icon="�"
           />
           <QuickActionButton 
             title="Schedule Event" 
             description="Create new event or hackathon"
-            icon="📅"
+            icon="�"
           />
           <QuickActionButton 
             title="Export Data" 
             description="Download all website data"
-            icon="📥"
-          />
-          <QuickActionButton 
-            title="View Analytics" 
-            description="Check website performance"
-            icon="📊"
+            icon="�"
           />
           <QuickActionButton 
             title="System Status" 

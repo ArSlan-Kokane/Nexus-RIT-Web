@@ -1,0 +1,65 @@
+[
+  {
+    "id": "5bb6d5a7-019d-4861-8bdf-ef997dc7ed17",
+    "submittedAt": "2026-09-22T06:11:41.553Z",
+    "status": "pending",
+    "personalInfo": {
+      "fullName": "Test User",
+      "email": "test@example.com",
+      "phone": "1234567890",
+      "year": "2nd",
+      "branch": "Computer Engineering",
+      "studentId": "TEST123"
+    },
+    "departmentInterest": {
+      "firstChoice": "TECHNOLOGY",
+      "secondChoice": "MEDIA_AND_MARKETING",
+      "reason": "Test reason for department interest"
+    },
+    "skills": {
+      "technicalSkills": [
+        "JavaScript"
+      ],
+      "experience": "Test experience description",
+      "projects": "Test projects description"
+    },
+    "responses": {
+      "whyJoin": "Test why I want to join NEXUS",
+      "contribution": "Test how I can contribute",
+      "timeCommitment": "Test time commitment availability"
+    }
+  },
+  {
+    "id": "5d0bacda-0f8a-4caa-bb47-fb48473c7cb4",
+    "submittedAt": "2026-09-22T06:20:38.968Z",
+    "status": "pending",
+    "personalInfo": {
+      "fullName": "Siddharth",
+      "email": "sidcodes@gmail.com",
+      "phone": "7777777777",
+      "year": "2nd",
+      "branch": "computer engineering",
+      "studentId": "2503033"
+    },
+    "departmentInterest": {
+      "firstChoice": "TECHNOLOGY",
+      "secondChoice": "ADMINISTRATION",
+      "reason": "I love it so much",
+      "thirdChoice": "OPERATIONS"
+    },
+    "skills": {
+      "technicalSkills": [
+        "JavaScript",
+        "Python",
+        "Java"
+      ],
+      "experience": "i love to work with softwares",
+      "projects": "i have worked on few before projects."
+    },
+    "responses": {
+      "whyJoin": "heleoadkjhajdalkjaldhadlkhalkdf;a",
+      "contribution": "halj;lakdfklanfkakaroajfnakn",
+      "timeCommitment": "kakjhdkjajgnalkdnahdouadnajkfn;a"
+    }
+  }
+]

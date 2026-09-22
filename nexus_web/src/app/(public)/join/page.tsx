@@ -22,7 +22,7 @@ export default async function JoinPage() {
     {
       step: "01",
       title: "Submit Application",
-      description: "Complete the official Google Form application indicating your preferred department, background, and past projects.",
+      description: "Complete the official NEXUS application form indicating your preferred department, background, and past projects.",
     },
     {
       step: "02",
@@ -56,7 +56,7 @@ export default async function JoinPage() {
     },
     {
       question: "How are recruitment applications processed?",
-      answer: "Applications are submitted directly through the official NEXUS Google Form and evaluated by the core leadership board.",
+      answer: "Applications are submitted through our official website application form and evaluated by the core leadership board.",
     },
   ];
 
@@ -88,17 +88,12 @@ export default async function JoinPage() {
 
               <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
                 {recruitment.isOpen ? (
-                  <a
-                    href={recruitment.googleFormUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto"
-                  >
+                  <Link href="/recruitment" className="w-full sm:w-auto">
                     <Button size="lg" variant="primary" className="w-full sm:w-auto text-sm font-semibold h-12 px-8">
-                      Open Google Form Application
+                      Apply Now
                       <ArrowUpRight className="h-4 w-4 ml-2" />
                     </Button>
-                  </a>
+                  </Link>
                 ) : (
                   <Link href="/contact" className="w-full sm:w-auto">
                     <Button size="lg" variant="primary" className="w-full sm:w-auto text-sm font-semibold h-12 px-8">
@@ -203,17 +198,12 @@ export default async function JoinPage() {
           {/* Bottom Application Callout */}
           <div className="text-center pt-12">
             {recruitment.isOpen && (
-              <a
-                href={recruitment.googleFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block"
-            >
-              <Button size="lg" variant="primary" className="text-sm font-semibold h-12 px-8">
-                Submit Your Application (Google Form)
-                <ArrowUpRight className="h-4 w-4 ml-2" />
-              </Button>
-            </a>
+              <Link href="/recruitment" className="inline-block">
+                <Button size="lg" variant="primary" className="text-sm font-semibold h-12 px-8">
+                  Submit Your Application
+                  <ArrowUpRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
             )}
           </div>
         </Container>
