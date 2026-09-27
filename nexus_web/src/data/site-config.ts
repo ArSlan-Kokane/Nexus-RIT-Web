@@ -18,7 +18,7 @@ export const siteConfig: SiteConfig = {
     email: "nexus@ritindia.edu",
     facultyCoordinator: "Gautami Shingan",
     instagram: "https://www.instagram.com/nexus_rit",
-    github: "https://github.com/nexus-rit",
+    github: "https://github.com/ArSlan-Kokane/Nexus-RIT-Web",
     linkedin: "https://linkedin.com/company/nexus-rit",
     whatsappCommunity: "https://chat.whatsapp.com/nexus-community-placeholder",
   },
