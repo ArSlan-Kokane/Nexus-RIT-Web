@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ExploreOverlay } from "./explore-overlay";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -110,6 +110,9 @@ export function Navbar() {
 
             {/* Right: Direct Join Button & Mobile Menu */}
             <div className="hidden lg:flex items-center gap-3">
+              <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-pink-500/5 border border-pink-500/10 hover:bg-pink-500/10 hover:border-pink-500/20 transition-all cursor-default opacity-30 hover:opacity-100">
+                <span className="text-[10px] font-mono text-zinc-400 hover:text-pink-300 transition-colors">Made with ❤️ by Arslan</span>
+              </div>
               <Button
                 href="/join"
                 variant="primary"

@@ -155,7 +155,9 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-[#1c1c27] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
           <div className="flex flex-col items-center sm:items-start gap-1">
             <p>© {currentYear} NEXUS — Innovation & Leadership Collective. All rights reserved.</p>
-            <p className="text-[11px] text-zinc-600 tracking-wide">Made with <span className="text-rose-400">❤️</span> by Arslan Kokane</p>
+            <div className="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/30">
+              <span className="text-sm font-semibold text-white">Made with ❤️ by Arslan Kokane</span>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <span>RIT</span>
