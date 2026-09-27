@@ -15,7 +15,7 @@ export const siteConfig: SiteConfig = {
     address: "Rajarambapu Institute of Technology (RIT), Rajaramnagar, Islampur, Sangli, Maharashtra - 415414",
   },
   contact: {
-    email: "[Official email — to be added]",
+    email: "nexus@ritindia.edu",
     facultyCoordinator: "Gautami Shingan",
     instagram: "https://www.instagram.com/nexus_rit",
     github: "https://github.com/nexus-rit",
