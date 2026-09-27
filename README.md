@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="NEXUS/nexus_web/images/Nexus_Logo.svg" alt="NEXUS Logo" width="120"/>
+<img src="nexus_web/public/images/nexus-official-mark.jpg" alt="NEXUS Logo" width="120"/>
 
 ### **NEXUS — Innovation & Leadership Collective**
 
