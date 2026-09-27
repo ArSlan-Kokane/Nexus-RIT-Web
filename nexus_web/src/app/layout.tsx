@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CursorSparkles } from "@/components/layout/cursor-sparkles";
 import { CyberspaceEntry } from "@/components/layout/cyberspace-entry";
 import { PageTransition } from "@/components/ui/page-transition";
@@ -66,6 +67,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} dark antialiased scroll-smooth`}
     >
+      <head>
+        <SpeedInsights />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#050507] text-[#f4f4f6]">
         <AdminLayoutClient>
           <CyberspaceEntry />
