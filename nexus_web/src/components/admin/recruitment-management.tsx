@@ -387,6 +387,7 @@ export function RecruitmentManagement() {
           application={selectedApplication}
           onClose={() => setSelectedApplication(null)}
           onUpdateStatus={updateStatus}
+          onRefresh={fetchApplications}
         />
       )}
     </div>
@@ -406,10 +407,12 @@ function ApplicationDetailModal({
   application,
   onClose,
   onUpdateStatus,
+  onRefresh,
 }: {
   application: RecruitmentApplication;
   onClose: () => void;
   onUpdateStatus: (id: string, status: ApplicationStatus) => void;
+  onRefresh?: () => void;
 }) {
   const [adminNotes, setAdminNotes] = useState(application.adminNotes || "");
 
@@ -423,7 +426,7 @@ function ApplicationDetailModal({
 
       if (response.ok) {
         onClose();
-        fetchApplications(); // Refresh the list
+        onRefresh?.(); // Refresh the list
       } else {
         console.error('Failed to save notes');
       }

@@ -127,7 +127,7 @@ export function RecruitmentForm() {
   const updateFormData = (section: keyof RecruitmentFormData, data: any) => {
     setFormData(prev => ({
       ...prev,
-      [section]: { ...prev[section], ...data }
+      [section]: { ...(prev[section] as any), ...data }
     }));
     // Clear errors for the updated fields
     if (section === 'personalInfo') {

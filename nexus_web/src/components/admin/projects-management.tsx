@@ -10,12 +10,12 @@ interface ProjectItem {
   title: string;
   tagline: string;
   description: string;
-  category: string;
+  category: any;
   techStack: string[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
-  contributors: Array<{ name: string; role?: string; github?: string }>;
-  featured: boolean;
+  contributors: Array<{ name: string; role?: string; github?: string; avatarUrl?: string }>;
+  featured?: boolean;
   completedYear: string;
   highlights: string[];
 }

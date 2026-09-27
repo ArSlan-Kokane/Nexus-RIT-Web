@@ -8,14 +8,16 @@ interface TeamMember {
   id: string;
   name: string;
   role: string;
-  department: string;
-  bio: string;
-  responsibilities: string;
-  avatarUrl: string;
+  department: any;
+  bio?: string;
+  responsibilities?: string;
+  avatarUrl?: string;
   socials: {
     linkedin?: string;
     github?: string;
     instagram?: string;
+    twitter?: string;
+    email?: string;
   };
   tenure: string;
   isCoreLead: boolean;
