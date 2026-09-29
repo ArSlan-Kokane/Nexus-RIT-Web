@@ -126,13 +126,13 @@ export function MobileNav() {
             ref={menuRef}
             id="mobile-navigation"
             aria-label="Mobile navigation"
-            className="fixed inset-0 top-16 z-50 bg-[#050507]/95 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-6 overflow-y-auto"
+            className="fixed inset-0 top-16 z-50 bg-[#050507]/98 backdrop-blur-xl border-t border-[#1c1c27] flex flex-col p-4 sm:p-6 overflow-y-auto"
             variants={drawerVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
           >
-            <div className="space-y-6 pb-6">
+            <div className="space-y-4 sm:space-y-6 pb-6">
               {NAV_GROUPS.map((group) => (
                 <div key={group.label} className="space-y-2">
                   <div className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase px-3">
@@ -147,7 +147,7 @@ export function MobileNav() {
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            "flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-medium transition-colors",
+                            "flex items-center justify-between py-3 sm:py-2.5 px-3 rounded-lg text-sm font-medium transition-colors",
                             isActive
                               ? "bg-purple-950/50 text-purple-300 border border-purple-800/40"
                               : "text-zinc-300 hover:text-white hover:bg-[#14141b]"

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CursorSparkles } from "@/components/layout/cursor-sparkles";
+import { MobileSparkles } from "@/components/layout/mobile-sparkles";
 import { CyberspaceEntry } from "@/components/layout/cyberspace-entry";
 import { PageTransition } from "@/components/ui/page-transition";
 import { AdminLayoutClient } from "@/components/admin/admin-layout-client";
@@ -74,6 +75,7 @@ export default function RootLayout({
         <AdminLayoutClient>
           <CyberspaceEntry />
           <CursorSparkles />
+          <MobileSparkles />
           <PageTransition>
             {children}
           </PageTransition>

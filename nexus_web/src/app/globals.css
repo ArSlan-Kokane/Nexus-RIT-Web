@@ -48,6 +48,44 @@
     selection-color: #ffffff;
   }
 
+  /* Mobile-specific improvements */
+  @media (max-width: 1024px) {
+    body {
+      font-size: 16px;
+    }
+    
+    /* Improve touch targets on mobile */
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Better spacing on mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* Mobile scroll animations */
+  @media (max-width: 1024px) {
+    .mobile-section-animate {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+
   ::selection {
     background-color: rgba(59, 130, 246, 0.3);
     color: #ffffff;

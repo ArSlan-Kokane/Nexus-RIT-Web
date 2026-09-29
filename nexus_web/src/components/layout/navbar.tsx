@@ -109,22 +109,23 @@ export function Navbar() {
             </nav>
 
             {/* Right: Direct Join Button & Mobile Menu */}
-            <div className="hidden lg:flex items-center gap-3">
-              <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-pink-500/5 border border-pink-500/10 hover:bg-pink-500/10 hover:border-pink-500/20 transition-all cursor-default opacity-30 hover:opacity-100">
-                <span className="text-[10px] font-mono text-zinc-400 hover:text-pink-300 transition-colors">Made with ❤️ by Arslan</span>
+            <div className="flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-3">
+                <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-pink-500/5 border border-pink-500/10 hover:bg-pink-500/10 hover:border-pink-500/20 transition-all cursor-default opacity-30 hover:opacity-100">
+                  <span className="text-[10px] font-mono text-zinc-400 hover:text-pink-300 transition-colors">Made with ❤️ by Arslan</span>
+                </div>
+                <Button
+                  href="/join"
+                  variant="primary"
+                  size="sm"
+                  className="font-medium text-xs shadow-[0_0_20px_rgba(168,85,247,0.2)] h-9 px-4"
+                >
+                  <span>Join NEXUS</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 ml-1" />
+                </Button>
               </div>
-              <Button
-                href="/join"
-                variant="primary"
-                size="sm"
-                className="font-medium text-xs shadow-[0_0_20px_rgba(168,85,247,0.2)] h-9 px-4"
-              >
-                <span>Join NEXUS</span>
-                <ArrowUpRight className="h-3.5 w-3.5 ml-1" />
-              </Button>
+              <MobileNav />
             </div>
-
-            <MobileNav />
           </div>
         </div>
       </header>
