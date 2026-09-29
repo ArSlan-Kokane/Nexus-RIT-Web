@@ -20,7 +20,7 @@ type AdminSection = "dashboard" | "team" | "recruitment" | "projects" | "events"
 
 export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
   const [activeSection, setActiveSection] = useState<AdminSection>("dashboard");
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!isOpen) return null;
 
@@ -35,39 +35,76 @@ export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? "w-64" : "w-16"} bg-[#0a0a0f] border-r border-[#1a1a2e] flex flex-col transition-all duration-300`}>
-        <div className="p-4 border-b border-[#1a1a2e] flex items-center justify-between">
-          {sidebarOpen && (
-            <div>
-              <h2 className="text-lg font-bold text-white">NEXUS Admin</h2>
-              <p className="text-xs text-gray-500">Tech Director Panel</p>
-            </div>
-          )}
+    <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col lg:flex-row">
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-[#0a0a0f] border-b border-[#1a1a2e] p-4 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-bold text-white">NEXUS Admin</h2>
+          <p className="text-xs text-gray-500">Tech Director Panel</p>
+        </div>
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors p-2"
           >
             <Menu size={20} />
           </button>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors p-2"
+          >
+            <X size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Sidebar - Drawer on mobile, fixed on desktop */}
+      <div className={`${sidebarOpen ? "fixed inset-y-0 left-0 z-50 lg:static lg:inset-auto" : "hidden lg:flex"} ${sidebarOpen ? "w-64" : "lg:w-64"} bg-[#0a0a0f] border-r border-[#1a1a2e] flex flex-col transition-all duration-300`}>
+        {/* Desktop Header */}
+        <div className="hidden lg:flex p-4 border-b border-[#1a1a2e] items-center justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-white">NEXUS Admin</h2>
+            <p className="text-xs text-gray-500">Tech Director Panel</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X size={20} />
+          </button>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
+        {/* Mobile Close Button */}
+        <div className="lg:hidden p-4 border-b border-[#1a1a2e] flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-white">Navigation</h2>
+          </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navigation.map((item) => {
             const Icon = item.icon;
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                onClick={() => {
+                  setActiveSection(item.id);
+                  setSidebarOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
                   activeSection === item.id
                     ? "bg-[#4f9eff]/10 text-[#4f9eff]"
                     : "text-gray-400 hover:text-white hover:bg-[#1a1a2e]"
                 }`}
               >
                 <Icon size={20} />
-                {sidebarOpen && <span className="text-sm font-medium">{item.label}</span>}
+                <span className="text-sm font-medium">{item.label}</span>
               </button>
             );
           })}
@@ -76,18 +113,26 @@ export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
         <div className="p-4 border-t border-[#1a1a2e]">
           <button
             onClick={onClose}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
           >
             <LogOut size={20} />
-            {sidebarOpen && <span className="text-sm font-medium">Logout</span>}
+            <span className="text-sm font-medium">Logout</span>
           </button>
         </div>
       </div>
 
+      {/* Mobile Backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <div className="bg-[#0a0a0f] border-b border-[#1a1a2e] p-4 flex items-center justify-between">
+        {/* Desktop Header */}
+        <div className="hidden lg:flex bg-[#0a0a0f] border-b border-[#1a1a2e] p-4 items-center justify-between">
           <h1 className="text-xl font-bold text-white capitalize">
             {navigation.find((n) => n.id === activeSection)?.label}
           </h1>
@@ -100,7 +145,7 @@ export function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto p-6">
+        <div className="flex-1 overflow-auto p-4 lg:p-6">
           {activeSection === "dashboard" && <DashboardContent setActiveSection={setActiveSection} />}
           {activeSection === "team" && <TeamManagement />}
           {activeSection === "recruitment" && <RecruitmentManagement />}
@@ -146,16 +191,16 @@ function DashboardContent({ setActiveSection }: { setActiveSection: (section: Ad
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
         <StatCard title="Team Members" value={stats.teamMembers.toString()} change="Core Leadership" />
         <StatCard title="Active Projects" value={stats.activeProjects.toString()} change="Featured Projects" />
         <StatCard title="Applications" value={stats.applications.toString()} change="Total Applications" />
         <StatCard title="Departments" value={stats.departments.toString()} change="Full Organization" />
       </div>
 
-      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-4 lg:p-6">
+        <h3 className="text-base lg:text-lg font-semibold text-white mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
           <QuickActionButton 
             title="View Applications" 
             description="Review recruitment applications"
@@ -195,30 +240,30 @@ function DashboardContent({ setActiveSection }: { setActiveSection: (section: Ad
         </div>
       </div>
 
-      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">System Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
-            <p className="text-gray-400 text-sm">Framework</p>
-            <p className="text-white font-medium mt-1">Next.js 16.3.3</p>
+      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-4 lg:p-6">
+        <h3 className="text-base lg:text-lg font-semibold text-white mb-4">System Information</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+          <div className="p-3 lg:p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
+            <p className="text-gray-400 text-xs lg:text-sm">Framework</p>
+            <p className="text-white font-medium mt-1 text-sm lg:text-base">Next.js 16.3.3</p>
           </div>
-          <div className="p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
-            <p className="text-gray-400 text-sm">React Version</p>
-            <p className="text-white font-medium mt-1">React 19.2.8</p>
+          <div className="p-3 lg:p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
+            <p className="text-gray-400 text-xs lg:text-sm">React Version</p>
+            <p className="text-white font-medium mt-1 text-sm lg:text-base">React 19.2.8</p>
           </div>
-          <div className="p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
-            <p className="text-gray-400 text-sm">Styling</p>
-            <p className="text-white font-medium mt-1">Tailwind CSS v4</p>
+          <div className="p-3 lg:p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
+            <p className="text-gray-400 text-xs lg:text-sm">Styling</p>
+            <p className="text-white font-medium mt-1 text-sm lg:text-base">Tailwind CSS v4</p>
           </div>
-          <div className="p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
-            <p className="text-gray-400 text-sm">TypeScript</p>
-            <p className="text-white font-medium mt-1">v5.x</p>
+          <div className="p-3 lg:p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg">
+            <p className="text-gray-400 text-xs lg:text-sm">TypeScript</p>
+            <p className="text-white font-medium mt-1 text-sm lg:text-base">v5.x</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Recent Admin Activity</h3>
+      <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-4 lg:p-6">
+        <h3 className="text-base lg:text-lg font-semibold text-white mb-4">Recent Admin Activity</h3>
         <div className="space-y-3">
           <ActivityItem
             action="Admin panel accessed"
@@ -238,10 +283,10 @@ function DashboardContent({ setActiveSection }: { setActiveSection: (section: Ad
 
 function StatCard({ title, value, change }: { title: string; value: string; change: string }) {
   return (
-    <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-6">
-      <h3 className="text-sm font-medium text-gray-400 mb-2">{title}</h3>
-      <p className="text-2xl font-bold text-white mb-1">{value}</p>
-      <p className="text-xs text-[#4f9eff]">{change}</p>
+    <div className="bg-[#0a0a0f] border border-[#1a1a2e] rounded-lg p-3 lg:p-6">
+      <h3 className="text-xs lg:text-sm font-medium text-gray-400 mb-1 lg:mb-2">{title}</h3>
+      <p className="text-xl lg:text-2xl font-bold text-white mb-0.5 lg:mb-1">{value}</p>
+      <p className="text-[10px] lg:text-xs text-[#4f9eff]">{change}</p>
     </div>
   );
 }
@@ -261,10 +306,10 @@ function ActivityItem({ action, target, time }: { action: string; target: string
 
 function QuickActionButton({ title, description, icon, onClick }: { title: string; description: string; icon: React.ReactNode; onClick?: () => void }) {
   return (
-    <button onClick={onClick} className="p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg hover:border-[#4f9eff] transition-colors text-left">
+    <button onClick={onClick} className="p-3 lg:p-4 bg-[#12121a] border border-[#1a1a2e] rounded-lg hover:border-[#4f9eff] transition-colors text-left min-h-[100px]">
       <div className="text-[#4f9eff] mb-2">{icon}</div>
-      <h4 className="text-white font-medium">{title}</h4>
-      <p className="text-sm text-gray-400 mt-1">{description}</p>
+      <h4 className="text-white font-medium text-sm lg:text-base">{title}</h4>
+      <p className="text-xs lg:text-sm text-gray-400 mt-1 line-clamp-2">{description}</p>
     </button>
   );
 }
