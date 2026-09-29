@@ -313,7 +313,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                   </motion.div>
                 </div>
                 <p className="text-sm text-zinc-400">
-                  Confidential projects under development. Access restricted to authorized personnel.
+                  Confidential projects under development. Access restricted to unauthorized personnel.
                 </p>
               </div>
             </div>
