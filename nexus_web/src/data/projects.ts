@@ -10,8 +10,8 @@ export const projectsData: ProjectItem[] = [
       "The official web infrastructure of NEXUS club built with Next.js 16 App Router, TypeScript, and Tailwind CSS v4. Designed for clean aesthetics, speed, and long-term maintainability across Tech Directors.",
     category: "WEB",
     techStack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4"],
-    githubUrl: "https://github.com/nexus-rit/NEXUS",
-    liveUrl: "https://nexusrit.org",
+    githubUrl: "https://github.com/ArSlan-Kokane/Nexus-RIT-Web",
+    liveUrl: "https://nexusweb-rit.vercel.app",
     contributors: [
       { name: "Arslan Kokane", role: "Tech Director", github: "https://github.com/ArSlan-Kokane" },
       { name: "Siddharth Pawar", role: "President" },
